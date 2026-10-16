@@ -5,6 +5,224 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Avis — Elouan Ménage</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles propres à la page Avis (Jules) */
+    .intro-avis {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .intro-avis h1 { margin: 0 0 0.5rem; }
+    .intro-avis p { color: var(--texte-doux); font-size: 1.1rem; }
+    .intro-avis figure { margin: 0; position: relative; }
+    .intro-avis img { box-shadow: var(--ombre); display: block; }
+    .intro-avis figcaption {
+      position: absolute; left: 1rem; bottom: 1rem;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.35rem 0.8rem; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600; color: var(--vert-fonce);
+    }
+
+    /* Fiche « Google » fictive */
+    .fiche {
+      background: #fff;
+      border-radius: var(--rayon);
+      box-shadow: var(--ombre);
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    .marque-google { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--texte-doux); margin: 0 0 0.25rem; }
+    .marque-google b { font-weight: 700; }
+    .g1 { color: #4285F4; } .g2 { color: #EA4335; } .g3 { color: #FBBC05; } .g4 { color: #34A853; }
+    .fiche h2 { margin: 0; font-size: 1.4rem; }
+    .fiche .meta { color: var(--texte-doux); font-size: 0.9rem; margin: 0.2rem 0 0; }
+    .fiche .ouvert { color: #1e8e3e; font-weight: 600; }
+
+    .note-globale { text-align: center; min-width: 9rem; }
+    .note-globale .chiffre { font-family: "Poppins", system-ui, sans-serif; font-size: 3.5rem; font-weight: 700; line-height: 1; color: var(--texte); }
+    .note-globale .etoiles-fond { position: relative; display: inline-block; font-size: 1.3rem; letter-spacing: 2px; color: #dadce0; }
+    .note-globale .etoiles-plein { position: absolute; inset: 0; overflow: hidden; white-space: nowrap; color: var(--soleil); width: 0; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+    .note-globale small { display: block; color: var(--texte-doux); }
+
+    .repartition { display: grid; gap: 0.35rem; min-width: 0; grid-column: 1 / -1; max-width: 560px; }
+    .barre {
+      display: grid; grid-template-columns: 1.2rem 1fr 2rem; gap: 0.6rem; align-items: center;
+      background: none; border: 0; padding: 0.2rem 0.4rem; border-radius: 6px;
+      font: inherit; font-size: 0.85rem; color: var(--texte-doux); cursor: pointer; text-align: left;
+      transition: background .2s;
+    }
+    .barre:hover { background: var(--surface); }
+    .barre.actif { background: #FBEFD3; color: var(--texte); font-weight: 600; }
+    .barre .piste { height: 10px; background: #e8eaed; border-radius: 99px; overflow: hidden; }
+    .barre .rempli { display: block; height: 100%; width: 0; background: var(--soleil); border-radius: 99px; transition: width 1s cubic-bezier(.2,.8,.2,1); }
+
+    .btn-avis { white-space: nowrap; border: 0; cursor: pointer; font-size: 0.95rem; }
+
+    /* Filtres */
+    .filtres { margin: 2rem 0 1rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+    .filtres > *, .puces { min-width: 0; }
+    .rangee { display: flex; align-items: center; gap: 0.75rem; }
+    .rangee > .libelle { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--texte-doux); min-width: 5.5rem; }
+    .puces {
+      display: flex; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x proximity;
+      padding: 0.25rem 0.1rem; scrollbar-width: none; flex: 1;
+      mask-image: linear-gradient(90deg, #000 92%, transparent);
+    }
+    .puces::-webkit-scrollbar { display: none; }
+    .puce {
+      flex: 0 0 auto; scroll-snap-align: start;
+      border: 1px solid #d5ddd6; background: #fff; color: var(--texte);
+      padding: 0.45rem 1rem; border-radius: 999px; font: inherit; font-size: 0.9rem; cursor: pointer;
+      transition: background .25s, color .25s, border-color .25s, transform .15s;
+    }
+    .puce:hover { border-color: var(--vert); }
+    .puce:active { transform: scale(.95); }
+    .puce[aria-pressed="true"] { background: var(--vert); border-color: var(--vert); color: #fff; }
+    .puce .nb { opacity: .7; font-size: 0.8em; margin-left: .25rem; }
+
+    .outils { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; }
+    .recherche { position: relative; flex: 1 1 240px; max-width: 360px; }
+    .recherche input {
+      width: 100%; padding: 0.6rem 1rem 0.6rem 2.4rem; border-radius: 999px;
+      border: 1px solid #d5ddd6; font: inherit; background: #fff;
+    }
+    .recherche::before { content: "🔍"; position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); font-size: .85rem; }
+    .outils select { padding: 0.55rem 0.9rem; border-radius: 999px; border: 1px solid #d5ddd6; font: inherit; background: #fff; }
+    .compteur { color: var(--texte-doux); font-size: 0.9rem; margin: 0; }
+    .compteur b { color: var(--texte); }
+    input:focus-visible, select:focus-visible, button:focus-visible, .puce:focus-visible { outline: 3px solid var(--bleu); outline-offset: 2px; }
+
+    /* Carrousel */
+    .carrousel { position: relative; }
+    .piste-avis {
+      display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      padding: 0.5rem 0.25rem 1.25rem; scrollbar-width: none;
+    }
+    .piste-avis::-webkit-scrollbar { display: none; }
+    .piste-avis.sortie .carte-avis { opacity: 0; transform: translateY(12px) scale(.98); }
+
+    .carte-avis {
+      flex: 0 0 calc((100% - 2.5rem) / 3);
+      scroll-snap-align: start;
+      background: #fff; border-radius: var(--rayon); box-shadow: var(--ombre);
+      padding: 1.35rem; display: flex; flex-direction: column; gap: 0.7rem;
+      transition: opacity .2s, transform .2s, box-shadow .25s;
+      animation: apparition .5s cubic-bezier(.2,.8,.2,1) both;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+    .carte-avis:hover { box-shadow: 0 8px 24px rgba(31, 42, 36, 0.14); transform: translateY(-3px); }
+    @keyframes apparition { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    .auteur-ligne { display: flex; gap: 0.75rem; align-items: center; }
+    .avatar {
+      width: 2.6rem; height: 2.6rem; border-radius: 50%; flex: 0 0 auto;
+      display: grid; place-items: center; color: #fff; font-weight: 700; font-family: "Poppins", system-ui, sans-serif;
+    }
+    .auteur-ligne strong { display: block; line-height: 1.2; }
+    .auteur-ligne small { color: var(--texte-doux); font-size: 0.8rem; }
+    .ligne-note { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--texte-doux); }
+    .ligne-note .etoiles { font-size: 1rem; }
+    .etoiles .vide { color: #dadce0; }
+    .nouveau { background: var(--soleil); color: var(--texte); font-size: .7rem; font-weight: 700; padding: .1rem .5rem; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+
+    .texte-avis { margin: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .carte-avis.deplie .texte-avis { -webkit-line-clamp: unset; display: block; }
+    .lire-plus { align-self: flex-start; background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: var(--bleu); cursor: pointer; font-size: 0.9rem; }
+
+    .reponse {
+      background: var(--surface); border-radius: 8px; padding: 0.75rem 0.9rem; font-size: 0.88rem;
+      border-left: 3px solid var(--vert);
+    }
+    .reponse b { color: var(--vert-fonce); }
+    .reponse p { margin: 0.25rem 0 0; }
+
+    .pied-carte { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+    .utile {
+      border: 1px solid #d5ddd6; background: #fff; border-radius: 999px; padding: .3rem .8rem;
+      font: inherit; font-size: .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+    }
+    .utile[aria-pressed="true"] { background: #E3EFE7; border-color: var(--vert); color: var(--vert-fonce); }
+    .utile.pop { animation: pop .35s; }
+    @keyframes pop { 50% { transform: scale(1.15); } }
+
+    .fleche {
+      position: absolute; top: 45%; transform: translateY(-50%);
+      width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: #fff; box-shadow: var(--ombre);
+      font-size: 1.3rem; color: var(--vert); cursor: pointer; z-index: 2; transition: opacity .2s, transform .2s;
+    }
+    .fleche:hover { transform: translateY(-50%) scale(1.08); }
+    .fleche:disabled { opacity: 0; pointer-events: none; }
+    .fleche.prec { left: -1.3rem; }
+    .fleche.suiv { right: -1.3rem; }
+
+    .points { display: flex; justify-content: center; gap: 0.45rem; min-height: 10px; }
+    .points button { width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: #cdd6cf; cursor: pointer; transition: width .3s, background .3s; }
+    .points button.actif { width: 26px; background: var(--vert); }
+
+    .vide-etat { text-align: center; padding: 3rem 1rem; color: var(--texte-doux); animation: apparition .4s both; }
+    .vide-etat span { font-size: 2.5rem; display: block; }
+
+    /* Fenêtre « Rédiger un avis » */
+    dialog {
+      border: 0; border-radius: var(--rayon); padding: 0; width: min(520px, calc(100% - 2rem));
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    dialog[open] { animation: apparition .3s both; }
+    dialog::backdrop { background: rgba(31, 42, 36, .45); backdrop-filter: blur(3px); }
+    dialog form { padding: 1.75rem; display: grid; gap: 1rem; }
+    dialog h2 { margin: 0; }
+    dialog label { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
+    dialog input, dialog select, dialog textarea { font: inherit; font-weight: 400; padding: .6rem .8rem; border: 1px solid #d5ddd6; border-radius: 8px; }
+    dialog textarea { min-height: 110px; resize: vertical; }
+    .choix-etoiles { display: flex; gap: .25rem; direction: rtl; justify-content: flex-end; }
+    .choix-etoiles input { position: absolute; opacity: 0; pointer-events: none; }
+    .choix-etoiles label { font-size: 2rem; color: #dadce0; cursor: pointer; transition: color .15s, transform .15s; }
+    .choix-etoiles label:hover, .choix-etoiles label:hover ~ label,
+    .choix-etoiles input:checked ~ label { color: var(--soleil); }
+    .choix-etoiles label:hover { transform: scale(1.15); }
+    .choix-etoiles input:focus-visible + label { outline: 3px solid var(--bleu); border-radius: 4px; }
+    .note-legale { font-size: .8rem; color: var(--texte-doux); margin: 0; }
+    .actions-modale { display: flex; justify-content: flex-end; gap: .5rem; }
+    .actions-modale button { border: 0; cursor: pointer; font-size: .95rem; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, calc(100% + 2rem)); visibility: hidden;
+      background: var(--vert-fonce); color: #fff; padding: .75rem 1.25rem; border-radius: 999px;
+      box-shadow: var(--ombre); transition: transform .4s cubic-bezier(.2,.8,.2,1), visibility .4s; z-index: 10;
+    }
+    .toast.visible { transform: translate(-50%, 0); visibility: visible; }
+
+    /* Apparition au défilement */
+    .revele { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1); }
+    .revele.vu { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .carte-avis { flex-basis: calc((100% - 1.25rem) / 2); }
+      .fiche { grid-template-columns: 1fr auto; }
+      .repartition { grid-column: 1 / -1; grid-row: 3; }
+      .fiche .btn-avis { grid-column: 1 / -1; justify-self: start; }
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 2rem; }
+      .intro-avis { grid-template-columns: 1fr; }
+      .carte-avis { flex-basis: 86%; }
+      .fiche { grid-template-columns: 1fr; text-align: center; gap: 1.25rem; }
+      .fiche .btn-avis { justify-self: center; }
+      .repartition { grid-row: auto; }
+      .rangee { flex-direction: column; align-items: stretch; gap: .35rem; }
+      .recherche { max-width: none; }
+      .outils select { flex: 1 1 100%; }
+      .fleche { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .revele { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -19,13 +237,436 @@
 
   <main>
     <!-- Page gérée par Jules sur la branche jules/avis -->
-    <h1>Avis</h1>
-    <p>Ce que nos clients disent de nous.</p>
-    <!-- À compléter : témoignages clients, notes -->
+    <section class="intro-avis revele">
+      <div>
+        <h1>Ils nous font confiance</h1>
+        <p>Ménage, vitres, haies ou meubles à monter : nos clients racontent leur expérience avec Elouan. Triez les avis par période, par service ou par note.</p>
+        <a class="btn" href="tarifs.html">Demander un devis</a>
+      </div>
+      <figure>
+        <img src="images/avis-haie-pouce.jpg" alt="Elouan taille une haie, à côté d'un buis sculpté en forme de pouce levé" width="638" height="414">
+        <figcaption>👍 Même les haies sont satisfaites</figcaption>
+      </figure>
+    </section>
+
+    <section class="section revele" aria-labelledby="titre-fiche">
+      <div class="fiche">
+        <div>
+          <p class="marque-google">Avis <b><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span></b></p>
+          <h2 id="titre-fiche">Elouan Ménage</h2>
+          <p class="meta">Services à domicile · Ménage, nettoyage, jardinage</p>
+          <p class="meta"><span class="ouvert">Ouvert</span> · Ferme à 19:00</p>
+        </div>
+
+        <div class="note-globale">
+          <div class="chiffre" id="note-moyenne">0,0</div>
+          <span class="etoiles-fond" aria-hidden="true">★★★★★<span class="etoiles-plein" id="etoiles-moyenne">★★★★★</span></span>
+          <small id="total-avis">0 avis</small>
+        </div>
+
+        <button class="btn btn-avis" type="button" id="ouvrir-modale">✏️ Rédiger un avis</button>
+
+        <div class="repartition" id="repartition" aria-label="Filtrer par note"></div>
+      </div>
+    </section>
+
+    <section class="revele" aria-label="Liste des avis">
+      <div class="filtres">
+        <div class="rangee">
+          <span class="libelle">Période</span>
+          <div class="puces" id="puces-periode" role="group" aria-label="Filtrer par période"></div>
+        </div>
+        <div class="rangee">
+          <span class="libelle">Service</span>
+          <div class="puces" id="puces-domaine" role="group" aria-label="Filtrer par service"></div>
+        </div>
+        <div class="outils">
+          <label class="recherche">
+            <span class="visually-hidden" hidden>Rechercher</span>
+            <input type="search" id="recherche" placeholder="Rechercher dans les avis (ex. haie, vitres…)" aria-label="Rechercher dans les avis">
+          </label>
+          <select id="tri" aria-label="Trier les avis">
+            <option value="recents">Les plus récents</option>
+            <option value="meilleurs">Les mieux notés</option>
+            <option value="moins">Les moins bien notés</option>
+            <option value="utiles">Les plus utiles</option>
+          </select>
+        </div>
+        <p class="compteur" id="compteur" aria-live="polite"></p>
+      </div>
+
+      <div class="carrousel">
+        <button class="fleche prec" type="button" id="prec" aria-label="Avis précédents">‹</button>
+        <div class="piste-avis" id="piste" tabindex="0"></div>
+        <button class="fleche suiv" type="button" id="suiv" aria-label="Avis suivants">›</button>
+      </div>
+      <div class="points" id="points"></div>
+    </section>
   </main>
 
+  <dialog id="modale" aria-labelledby="titre-modale">
+    <form method="dialog" id="formulaire">
+      <h2 id="titre-modale">Votre avis sur Elouan Ménage</h2>
+      <div>
+        <div class="choix-etoiles" role="radiogroup" aria-label="Votre note">
+          <input type="radio" name="note" id="n5" value="5" required><label for="n5" title="5 étoiles">★</label>
+          <input type="radio" name="note" id="n4" value="4"><label for="n4" title="4 étoiles">★</label>
+          <input type="radio" name="note" id="n3" value="3"><label for="n3" title="3 étoiles">★</label>
+          <input type="radio" name="note" id="n2" value="2"><label for="n2" title="2 étoiles">★</label>
+          <input type="radio" name="note" id="n1" value="1"><label for="n1" title="1 étoile">★</label>
+        </div>
+      </div>
+      <label>Prénom<input name="prenom" required maxlength="30" placeholder="Ex. Camille"></label>
+      <label>Ville<input name="ville" maxlength="30" placeholder="Ex. Rezé"></label>
+      <label>Service
+        <select name="domaine">
+          <option value="entretien">🧹 Entretien</option>
+          <option value="nettoyage">🧽 Nettoyage</option>
+          <option value="jardinage">🌿 Jardinage</option>
+          <option value="coup-de-main">🔧 Petit coup de main</option>
+        </select>
+      </label>
+      <label>Votre avis<textarea name="texte" required maxlength="600" placeholder="Racontez votre expérience…"></textarea></label>
+      <p class="note-legale">Démonstration : votre avis s'affiche sur cette page mais n'est envoyé nulle part.</p>
+      <div class="actions-modale">
+        <button class="btn btn-secondaire" type="button" id="annuler">Annuler</button>
+        <button class="btn" type="submit" value="publier">Publier</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+
   <footer>
-    <p>&copy; 2026 Elouan Ménage</p>
+    <p>&copy; 2026 Elouan Ménage · Avis fictifs créés pour un projet pédagogique</p>
   </footer>
+
+  <script>
+    // Avis fictifs. « jours » = il y a combien de jours l'avis a été posté,
+    // pour que la page reste toujours à jour (ce mois-ci, cette année…).
+    const AVIS = [
+      { prenom: "Claire", ville: "Saint-Herblain", note: 5, jours: 3, domaine: "jardinage", guide: 14, utiles: 12,
+        texte: "Elouan a taillé toute notre haie de thuyas et, au passage, il a sculpté un petit pouce levé dans le buis. Mes enfants l'adorent ! Travail propre, déchets évacués, rien à redire.",
+        reponse: "Merci Claire ! Le pouce était offert, il fallait bien qu'il ait un copain dans le jardin 😄" },
+      { prenom: "Marc", ville: "Nantes", note: 5, jours: 9, domaine: "nettoyage", guide: 32, utiles: 8,
+        texte: "Terrasse en dalles complètement verte après l'hiver. Deux heures de nettoyeur haute pression plus tard, on aurait dit du neuf. Il a même nettoyé mon nain de jardin, qui n'avait rien demandé." },
+      { prenom: "Sophie", ville: "Rezé", note: 5, jours: 16, domaine: "entretien", guide: 3, utiles: 5,
+        texte: "Ménage tous les jeudis depuis six mois. Ponctuel, discret, et la maison sent bon quand je rentre. Ma perruche Kiwi s'est même installée sur l'aspirateur, elle l'aime bien." },
+      { prenom: "Thomas", ville: "Orvault", note: 4, jours: 24, domaine: "coup-de-main", guide: 7, utiles: 2,
+        texte: "Montage d'une armoire et de deux étagères. Très efficace, il manquait juste une vis dans le carton (pas de sa faute) : il est repassé le lendemain pour finir. Sérieux.",
+        reponse: "Merci Thomas, la vis manquante a été retrouvée sous le canapé, affaire classée !" },
+      { prenom: "Nadia", ville: "Bouguenais", note: 5, jours: 38, domaine: "nettoyage", guide: 21, utiles: 9,
+        texte: "Les vitres n'avaient jamais été aussi propres. Il a dessiné un smiley dans la buée avant de tout essuyer, ça m'a fait rire. Vraiment le pro multi-tâches qu'on cherchait." },
+      { prenom: "Jean-Pierre", ville: "Vertou", note: 5, jours: 52, domaine: "jardinage", guide: 0, utiles: 4,
+        texte: "À 78 ans, je ne peux plus tondre ni ramasser les feuilles. Elouan vient tous les quinze jours, il est gentil et prend toujours le temps de discuter. Je recommande à tous mes voisins." },
+      { prenom: "Inès", ville: "Nantes", note: 5, jours: 71, domaine: "entretien", guide: 11, utiles: 6,
+        texte: "Entretien de notre location saisonnière entre deux voyageurs : lits faits, salle de bain impeccable, petit mot d'accueil. Nos notes Airbnb ont grimpé depuis qu'il s'en occupe." },
+      { prenom: "Romain", ville: "Carquefou", note: 3, jours: 96, domaine: "nettoyage", guide: 5, utiles: 1,
+        texte: "Bon nettoyage de fin de chantier, mais l'intervention a commencé avec une heure de retard à cause de la circulation. Le résultat final reste très correct.",
+        reponse: "Bonjour Romain, désolé pour ce retard, vous auriez dû être prévenu plus tôt. Depuis, j'envoie un SMS dès que j'ai un imprévu. Merci pour votre retour honnête." },
+      { prenom: "Lucie", ville: "Sainte-Luce-sur-Loire", note: 5, jours: 130, domaine: "coup-de-main", guide: 2, utiles: 3,
+        texte: "Partie trois semaines en vacances : Elouan a arrosé les plantes, sorti les poubelles et relevé le courrier. On est rentrés dans une maison propre, avec un jardin tondu en prime." },
+      { prenom: "Hugo", ville: "Saint-Sébastien", note: 4, jours: 175, domaine: "jardinage", guide: 18, utiles: 2,
+        texte: "Désherbage de toutes les allées et taille des rosiers. Beau travail. Seul petit bémol : il faut réserver à l'avance au printemps, il est très demandé !" },
+      { prenom: "Amandine", ville: "La Chapelle-sur-Erdre", note: 5, jours: 220, domaine: "entretien", guide: 9, utiles: 7,
+        texte: "Avec deux enfants en bas âge et deux boulots, Elouan nous sauve la vie. Ménage, repassage, et il a même réparé la porte du placard qui grinçait depuis deux ans." },
+      { prenom: "Karim", ville: "Nantes", note: 5, jours: 300, domaine: "nettoyage", guide: 41, utiles: 10,
+        texte: "État des lieux de sortie de mon appartement : il a rendu le four et la hotte comme neufs. J'ai récupéré toute ma caution. Rapide, efficace, et le prix était annoncé dès le départ." },
+      { prenom: "Mireille", ville: "Basse-Goulaine", note: 5, jours: 365, domaine: "jardinage", guide: 1, utiles: 5,
+        texte: "Il a remis en état un jardin laissé à l'abandon depuis la succession de ma mère. Un an après, il continue de l'entretenir. Merci pour votre patience et votre gentillesse." },
+      { prenom: "Bastien", ville: "Couëron", note: 4, jours: 410, domaine: "coup-de-main", guide: 6, utiles: 1,
+        texte: "Petites réparations : tringle à rideaux, poignée de porte, joint de douche. Tout est fait proprement. Les tarifs sont clairs, et le crédit d'impôt est bien pratique." },
+      { prenom: "Élodie", ville: "Rezé", note: 5, jours: 520, domaine: "entretien", guide: 4, utiles: 4,
+        texte: "Je l'ai connu à ses débuts, et c'est un plaisir de voir l'entreprise grandir. Toujours la même rigueur et la même bonne humeur. Il a aussi une collection de nains de jardin, demandez-lui !" },
+      { prenom: "Gérard", ville: "Indre", note: 5, jours: 640, domaine: "nettoyage", guide: 0, utiles: 3,
+        texte: "Démoussage et nettoyage complet de la toiture du garage et des gouttières. Travail soigné, en toute sécurité. Je le rappelle chaque automne." }
+    ];
+
+    const DOMAINES = {
+      "entretien":    { nom: "Entretien",    picto: "🧹" },
+      "nettoyage":    { nom: "Nettoyage",    picto: "🧽" },
+      "jardinage":    { nom: "Jardinage",    picto: "🌿" },
+      "coup-de-main": { nom: "Coup de main", picto: "🔧" }
+    };
+    const COULEURS = ["#2F6B4F", "#3A7CA5", "#B5652B", "#7A4E9C", "#C0392B", "#1F7A7A", "#8A6D1F"];
+    const JOUR = 24 * 60 * 60 * 1000;
+    const maintenant = new Date();
+
+    AVIS.forEach((a, i) => {
+      a.id = i;
+      a.date = new Date(maintenant.getTime() - a.jours * JOUR);
+      a.jaime = false;
+    });
+
+    const etat = { periode: "tout", domaine: "tout", note: null, recherche: "", tri: "recents" };
+    const $ = (s) => document.querySelector(s);
+    const piste = $("#piste");
+
+    function echapper(t) {
+      return t.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    function dateRelative(d) {
+      const j = Math.floor((maintenant - d) / JOUR);
+      if (j <= 0) return "aujourd'hui";
+      if (j === 1) return "hier";
+      if (j < 7) return `il y a ${j} jours`;
+      if (j < 30) { const s = Math.floor(j / 7); return s === 1 ? "il y a une semaine" : `il y a ${s} semaines`; }
+      if (j < 365) { const m = Math.floor(j / 30); return m === 1 ? "il y a un mois" : `il y a ${m} mois`; }
+      const a = Math.floor(j / 365); return a === 1 ? "il y a un an" : `il y a ${a} ans`;
+    }
+
+    function etoiles(n) {
+      return "★".repeat(n) + `<span class="vide">${"★".repeat(5 - n)}</span>`;
+    }
+
+    // Filtres de période : générés à partir des dates des avis
+    function periodes() {
+      const annees = [...new Set(AVIS.map((a) => a.date.getFullYear()))].sort((a, b) => b - a);
+      return [
+        { id: "tout", nom: "Tous", test: () => true },
+        { id: "mois", nom: "Ce mois-ci", test: (a) => a.date.getMonth() === maintenant.getMonth() && a.date.getFullYear() === maintenant.getFullYear() },
+        { id: "3mois", nom: "3 derniers mois", test: (a) => maintenant - a.date <= 92 * JOUR },
+        ...annees.map((y) => ({ id: "an" + y, nom: String(y), test: (a) => a.date.getFullYear() === y }))
+      ];
+    }
+
+    function domaines() {
+      return [{ id: "tout", nom: "Tous les services", test: () => true },
+        ...Object.entries(DOMAINES).map(([id, d]) => ({ id, nom: `${d.picto} ${d.nom}`, test: (a) => a.domaine === id }))];
+    }
+
+    function dessinerPuces(conteneur, liste, cle) {
+      conteneur.innerHTML = liste.map((p) => {
+        const nb = AVIS.filter(p.test).length;
+        return `<button class="puce" type="button" data-id="${p.id}" aria-pressed="${etat[cle] === p.id}">${p.nom}<span class="nb">${nb}</span></button>`;
+      }).join("");
+      conteneur.onclick = (e) => {
+        const b = e.target.closest(".puce");
+        if (!b) return;
+        etat[cle] = b.dataset.id;
+        conteneur.querySelectorAll(".puce").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        b.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        rafraichir();
+      };
+    }
+
+    function dessinerResume(anime) {
+      const total = AVIS.length;
+      const moyenne = AVIS.reduce((s, a) => s + a.note, 0) / total;
+      $("#total-avis").textContent = `${total} avis`;
+      $("#etoiles-moyenne").style.width = (moyenne / 5) * 100 + "%";
+
+      const cible = Math.round(moyenne * 10) / 10;
+      const el = $("#note-moyenne");
+      if (!anime || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        el.textContent = cible.toFixed(1).replace(".", ",");
+      } else {
+        const debut = performance.now();
+        const tick = (t) => {
+          const p = Math.min((t - debut) / 1200, 1);
+          const v = cible * (1 - Math.pow(1 - p, 3));
+          el.textContent = v.toFixed(1).replace(".", ",");
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+
+      const rep = $("#repartition");
+      rep.innerHTML = [5, 4, 3, 2, 1].map((n) => {
+        const c = AVIS.filter((a) => a.note === n).length;
+        return `<button class="barre${etat.note === n ? " actif" : ""}" type="button" data-note="${n}" aria-pressed="${etat.note === n}" aria-label="${n} étoiles : ${c} avis">
+          <span>${n}</span><span class="piste"><span class="rempli" data-w="${(c / total) * 100}"></span></span><span>${c}</span></button>`;
+      }).join("");
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        rep.querySelectorAll(".rempli").forEach((r) => (r.style.width = r.dataset.w + "%"));
+      }));
+    }
+
+    $("#repartition").addEventListener("click", (e) => {
+      const b = e.target.closest(".barre");
+      if (!b) return;
+      const n = Number(b.dataset.note);
+      etat.note = etat.note === n ? null : n;
+      $("#repartition").querySelectorAll(".barre").forEach((x) => {
+        const actif = Number(x.dataset.note) === etat.note;
+        x.classList.toggle("actif", actif);
+        x.setAttribute("aria-pressed", actif);
+      });
+      rafraichir();
+    });
+
+    function avisFiltres() {
+      const p = periodes().find((x) => x.id === etat.periode) || periodes()[0];
+      const d = domaines().find((x) => x.id === etat.domaine);
+      const q = etat.recherche.trim().toLowerCase();
+      const liste = AVIS.filter((a) => p.test(a) && d.test(a)
+        && (etat.note === null || a.note === etat.note)
+        && (!q || (a.texte + " " + a.prenom + " " + a.ville).toLowerCase().includes(q)));
+      const tris = {
+        recents: (a, b) => b.date - a.date,
+        meilleurs: (a, b) => b.note - a.note || b.date - a.date,
+        moins: (a, b) => a.note - b.note || b.date - a.date,
+        utiles: (a, b) => (b.utiles + b.jaime) - (a.utiles + a.jaime)
+      };
+      return liste.sort(tris[etat.tri]);
+    }
+
+    function carte(a, i) {
+      const d = DOMAINES[a.domaine];
+      const initiale = a.prenom.charAt(0).toUpperCase();
+      const sousTitre = a.guide ? `Local Guide · ${a.guide} avis` : "1 avis";
+      const reponse = a.reponse ? `<div class="reponse"><b>Réponse du propriétaire</b> · ${dateRelative(new Date(a.date.getTime() + JOUR))}<p>${echapper(a.reponse)}</p></div>` : "";
+      return `<article class="carte-avis" style="--i:${Math.min(i, 6)}" data-id="${a.id}">
+        <div class="auteur-ligne">
+          <span class="avatar" style="background:${COULEURS[a.id % COULEURS.length]}" aria-hidden="true">${echapper(initiale)}</span>
+          <div><strong>${echapper(a.prenom)}${a.ville ? " · " + echapper(a.ville) : ""}</strong><small>${sousTitre}</small></div>
+        </div>
+        <div class="ligne-note">
+          <span class="etoiles" aria-label="${a.note} sur 5">${etoiles(a.note)}</span>
+          <span>${dateRelative(a.date)}</span>
+          ${a.nouveau ? '<span class="nouveau">Nouveau</span>' : ""}
+        </div>
+        <span class="badge badge-${a.domaine}" style="align-self:flex-start">${d.picto} ${d.nom}</span>
+        <p class="texte-avis">${echapper(a.texte)}</p>
+        <button class="lire-plus" type="button" hidden>Plus</button>
+        ${reponse}
+        <div class="pied-carte">
+          <button class="utile" type="button" aria-pressed="${a.jaime}">👍 Utile · <span>${a.utiles + a.jaime}</span></button>
+        </div>
+      </article>`;
+    }
+
+    let premierRendu = true;
+    function rafraichir() {
+      const liste = avisFiltres();
+      $("#compteur").innerHTML = `<b>${liste.length}</b> avis affiché${liste.length > 1 ? "s" : ""} sur ${AVIS.length}`;
+
+      const dessiner = () => {
+        piste.classList.remove("sortie");
+        piste.innerHTML = liste.length
+          ? liste.map(carte).join("")
+          : `<div class="vide-etat" style="flex:1"><span>🧐</span>Aucun avis ne correspond à ces filtres.<br><button class="btn btn-secondaire" type="button" id="reinitialiser" style="margin-top:1rem">Réinitialiser les filtres</button></div>`;
+        piste.scrollLeft = 0;
+        piste.querySelectorAll(".carte-avis").forEach((c) => {
+          const t = c.querySelector(".texte-avis");
+          if (t.scrollHeight > t.clientHeight + 2) c.querySelector(".lire-plus").hidden = false;
+        });
+        majNavigation();
+      };
+
+      if (premierRendu) { premierRendu = false; dessiner(); return; }
+      piste.classList.add("sortie");
+      setTimeout(dessiner, 200);
+    }
+
+    // Clics dans les cartes : « Plus » et « Utile »
+    piste.addEventListener("click", (e) => {
+      if (e.target.id === "reinitialiser") return reinitialiser();
+      const c = e.target.closest(".carte-avis");
+      if (!c) return;
+      if (e.target.closest(".lire-plus")) {
+        const ouvert = c.classList.toggle("deplie");
+        e.target.textContent = ouvert ? "Moins" : "Plus";
+      }
+      const u = e.target.closest(".utile");
+      if (u) {
+        const a = AVIS[Number(c.dataset.id)];
+        a.jaime = !a.jaime;
+        u.setAttribute("aria-pressed", a.jaime);
+        u.querySelector("span").textContent = a.utiles + a.jaime;
+        u.classList.remove("pop"); void u.offsetWidth; u.classList.add("pop");
+      }
+    });
+
+    function reinitialiser() {
+      Object.assign(etat, { periode: "tout", domaine: "tout", note: null, recherche: "" });
+      $("#recherche").value = "";
+      dessinerPuces($("#puces-periode"), periodes(), "periode");
+      dessinerPuces($("#puces-domaine"), domaines(), "domaine");
+      dessinerResume(false);
+      rafraichir();
+    }
+
+    // Navigation du carrousel : flèches et points
+    function parVue() {
+      const c = piste.querySelector(".carte-avis");
+      if (!c) return 1;
+      return Math.max(1, Math.round(piste.clientWidth / c.getBoundingClientRect().width));
+    }
+    function majNavigation() {
+      const cartes = piste.querySelectorAll(".carte-avis");
+      const pages = Math.max(1, Math.ceil(cartes.length / parVue()));
+      const max = piste.scrollWidth - piste.clientWidth;
+      const page = max > 0 ? Math.round((piste.scrollLeft / max) * (pages - 1)) : 0;
+      $("#prec").disabled = piste.scrollLeft <= 4;
+      $("#suiv").disabled = piste.scrollLeft >= max - 4;
+      const pts = $("#points");
+      if (pts.children.length !== (pages > 1 ? pages : 0)) {
+        pts.innerHTML = pages > 1 ? Array.from({ length: pages }, (_, i) => `<button type="button" aria-label="Page ${i + 1}" data-p="${i}"></button>`).join("") : "";
+      }
+      [...pts.children].forEach((b, i) => b.classList.toggle("actif", i === page));
+    }
+    const pas = () => (piste.querySelector(".carte-avis")?.getBoundingClientRect().width || 300) + 20;
+    $("#prec").onclick = () => piste.scrollBy({ left: -pas() * parVue() });
+    $("#suiv").onclick = () => piste.scrollBy({ left: pas() * parVue() });
+    $("#points").onclick = (e) => {
+      const b = e.target.closest("button");
+      if (b) piste.scrollTo({ left: Number(b.dataset.p) * pas() * parVue() });
+    };
+    piste.addEventListener("scroll", () => requestAnimationFrame(majNavigation), { passive: true });
+    piste.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); $("#suiv").click(); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); $("#prec").click(); }
+    });
+    addEventListener("resize", majNavigation);
+
+    // Recherche et tri
+    let minuterie;
+    $("#recherche").addEventListener("input", (e) => {
+      clearTimeout(minuterie);
+      minuterie = setTimeout(() => { etat.recherche = e.target.value; rafraichir(); }, 250);
+    });
+    $("#tri").addEventListener("change", (e) => { etat.tri = e.target.value; rafraichir(); });
+
+    // Fenêtre « Rédiger un avis » (démonstration, rien n'est envoyé)
+    const modale = $("#modale");
+    $("#ouvrir-modale").onclick = () => modale.showModal();
+    $("#annuler").onclick = () => modale.close();
+    $("#formulaire").addEventListener("submit", (e) => {
+      const f = new FormData(e.target);
+      AVIS.push({
+        id: AVIS.length, prenom: f.get("prenom").trim(), ville: f.get("ville").trim(),
+        note: Number(f.get("note")), jours: 0, date: new Date(), domaine: f.get("domaine"),
+        guide: 0, utiles: 0, jaime: false, nouveau: true, texte: f.get("texte").trim()
+      });
+      e.target.reset();
+      reinitialiser();
+      montrerToast("Merci ! Votre avis apparaît en tête de liste 🎉");
+    });
+
+    function montrerToast(msg) {
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("visible");
+      setTimeout(() => t.classList.remove("visible"), 3200);
+    }
+
+    // Apparition des sections au défilement
+    const obs = new IntersectionObserver((entrees) => {
+      entrees.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("vu");
+        obs.unobserve(en.target);
+        if (en.target.querySelector("#note-moyenne")) dessinerResume(true);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".revele").forEach((s) => obs.observe(s));
+
+    // Premier affichage
+    dessinerPuces($("#puces-periode"), periodes(), "periode");
+    dessinerPuces($("#puces-domaine"), domaines(), "domaine");
+    rafraichir();
+  </script>
 </body>
 </html>
