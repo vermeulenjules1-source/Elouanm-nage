@@ -6,7 +6,8 @@
 
 - **Nom :** Elouan Ménage
 - **Slogan :** *Un seul pro pour toute la maison.*
-- **Logo (provisoire) :** le texte **Elouan Ménage** en Poppins gras, couleur `--vert`, précédé d'une petite feuille 🌿.
+- **Logo :** une maison dessinée au trait, d'où pousse une feuille, avec une étincelle jaune de propreté. Il est suivi de **Elouan Ménage** en Poppins gras et de la mention « Maison & jardin ». Le symbole est dans `images/icones.svg#logo`, l'icône d'onglet dans `images/favicon.svg`.
+- **Pas d'emojis.** On utilise les icônes dessinées de `images/icones.svg` (voir plus bas).
 - **Ambiance :** nature et propreté, une ambiance de maison claire et rangée avec un jardin entretenu. Chaleureux, rassurant, pas luxueux.
 
 ## Couleurs
@@ -39,12 +40,34 @@ Tailles : `h1` ≈ 2,5 rem, `h2` ≈ 1,75 rem, `h3` ≈ 1,25 rem, texte 1 rem.
 
 Gardez toujours le même pictogramme pour un même pôle, sur toutes les pages :
 
-| Pôle | Pictogramme | Classe de badge |
+| Pôle | Icône (`images/icones.svg#…`) | Classe de badge |
 |---|---|---|
-| Entretien | 🧹 | `badge badge-entretien` |
-| Nettoyage | 🧽 | `badge badge-nettoyage` |
-| Jardinage | 🌿 | `badge badge-jardinage` |
-| Petits coups de main | 🔧 | `badge badge-coup-de-main` |
+| Entretien | `balai` | `badge badge-entretien` |
+| Nettoyage | `eponge` | `badge badge-nettoyage` |
+| Jardinage | `feuille` | `badge badge-jardinage` |
+| Petits coups de main | `cle` | `badge badge-coup-de-main` |
+
+## Icônes dessinées
+
+Les icônes sont dessinées au trait et prennent la couleur du texte :
+
+```html
+<svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg>
+```
+
+Icônes disponibles : `balai`, `eponge`, `feuille`, `cle`, `etoile`, `tel`, `horloge`, `euro`, `pin`, `eclair`, `maison`, `livre`, `crayon`, `pouce`, `loupe`, `calendrier`, `fleche`, `check`, `document`, `mail`, `imprimer`, `copier`, `cookie`, `fermer`, `coeur`, `bulle`.
+
+Touches « dessinées » : la classe `souligne` ajoute un trait jaune fait à la main sous un mot, et `cadre-dessin` (sur une `<figure>`) ajoute un cadre crayonné derrière une photo.
+
+## Liens de devis
+
+Tous les boutons de devis mènent à `devis.html`, qu'on peut pré-remplir avec l'adresse :
+
+| Lien | Effet |
+|---|---|
+| `devis.html` | Ménage 3 h coché par défaut |
+| `devis.html?service=jardinage&heures=3` | Jardinage 3 h (aussi `entretien`, `nettoyage`, `coup-de-main`) |
+| `devis.html?formule=maison-complete` | Forfait « Maison complète » coché |
 
 ## Composants prêts à l'emploi
 
@@ -60,7 +83,7 @@ Gardez toujours le même pictogramme pour un même pôle, sur toutes les pages :
 <!-- Grille de cartes -->
 <div class="grille">
   <article class="carte">
-    <span class="badge badge-jardinage">🌿 Jardinage</span>
+    <span class="badge badge-jardinage">Jardinage</span>
     <h3>Tonte et taille</h3>
     <p>Un jardin net toute l'année.</p>
   </article>

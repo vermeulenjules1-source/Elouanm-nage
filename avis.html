@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Avis — Elouan Ménage</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <style>
     /* Styles propres à la page Avis (Jules) */
@@ -74,7 +75,7 @@
       width: 100%; padding: 0.6rem 1rem 0.6rem 2.4rem; border-radius: 999px;
       border: 1px solid #d5ddd6; font: inherit; background: #fff;
     }
-    .recherche::before { content: "🔍"; position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); font-size: .85rem; }
+    .recherche > .ico { position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); color: var(--texte-doux); }
     .outils select { padding: 0.55rem 0.9rem; border-radius: 999px; border: 1px solid #d5ddd6; font: inherit; background: #fff; }
     .compteur { color: var(--texte-doux); font-size: 0.9rem; margin: 0; }
     .compteur b { color: var(--texte); }
@@ -125,6 +126,9 @@
     .reponse p { margin: 0.25rem 0 0; }
 
     .pied-carte { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+    .badge .ico, .puce .ico { width: 1em; height: 1em; }
+    .utile .ico { width: 1em; height: 1em; vertical-align: -.15em; }
+    .intro-avis figcaption { display: inline-flex; align-items: center; gap: .4rem; }
     .utile {
       border: 1px solid #d5ddd6; background: #fff; border-radius: 999px; padding: .3rem .8rem;
       font: inherit; font-size: .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s;
@@ -148,7 +152,8 @@
     .points button.actif { width: 26px; background: var(--vert); }
 
     .vide-etat { text-align: center; padding: 3rem 1rem; color: var(--texte-doux); animation: apparition .4s both; }
-    .vide-etat span { font-size: 2.5rem; display: block; }
+    .vide-etat span { display: block; color: var(--vert); }
+    .vide-etat span .ico { width: 2.5rem; height: 2.5rem; }
 
     /* Fenêtre « Rédiger un avis » */
     dialog {
@@ -180,6 +185,10 @@
     }
     .toast.visible { transform: translate(-50%, 0); visibility: visible; }
 
+    @media (max-width: 1080px) {
+      .fleche.prec { left: .25rem; }
+      .fleche.suiv { right: .25rem; }
+    }
     @media (max-width: 900px) {
       .carte-avis { flex-basis: calc((100% - 1.25rem) / 2); }
       .fiche { grid-template-columns: 1fr auto; }
@@ -208,34 +217,34 @@
     <div class="banderole" aria-label="Informations pratiques">
       <div class="banderole-defile">
         <ul class="banderole-liste">
-          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
-          <li>📞 06 00 00 00 00</li>
-          <li>🕗 Lun–sam · 8 h–19 h</li>
-          <li>💶 50 % de crédit d'impôt immédiat</li>
-          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
-          <li>📍 Nantes et 20 km autour</li>
-          <li>⚡ Devis gratuit sous 24 h</li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
         </ul>
         <ul class="banderole-liste" aria-hidden="true">
-          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
-          <li>📞 06 00 00 00 00</li>
-          <li>🕗 Lun–sam · 8 h–19 h</li>
-          <li>💶 50 % de crédit d'impôt immédiat</li>
-          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
-          <li>📍 Nantes et 20 km autour</li>
-          <li>⚡ Devis gratuit sous 24 h</li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
         </ul>
       </div>
     </div>
     <nav aria-label="Navigation principale">
-      <a class="logo" href="index.html">Elouan Ménage</a>
+      <a class="logo" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
       <div class="liens-nav">
         <a href="index.html">Accueil</a>
         <a href="notre-histoire.html">Notre histoire</a>
         <a href="tarifs.html">Tarifs</a>
         <a href="avis.html" aria-current="page">Avis</a>
       </div>
-      <a class="btn btn-nav" href="tarifs.html#devis">Réserver</a>
+      <a class="btn btn-nav" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Devis<span class="masque-etroit"> gratuit</span></a>
     </nav>
   </header>
 
@@ -243,13 +252,13 @@
     <!-- Page gérée par Jules sur la branche jules/avis -->
     <section class="intro-avis revele">
       <div>
-        <h1>Ils nous font confiance</h1>
+        <h1>Ils nous font <span class="souligne">confiance</span></h1>
         <p>Ménage, vitres, haies ou meubles à monter : nos clients racontent leur expérience avec Elouan. Triez les avis par période, par service ou par note.</p>
-        <a class="btn" href="tarifs.html#devis">Demander un devis</a>
+        <a class="btn" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Demander un devis</a>
       </div>
-      <figure>
+      <figure class="cadre-dessin">
         <img src="images/avis-haie-pouce.jpg" alt="Elouan taille une haie, à côté d'un buis sculpté en forme de pouce levé" width="638" height="414">
-        <figcaption>👍 Même les haies sont satisfaites</figcaption>
+        <figcaption><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pouce"/></svg> Même les haies sont satisfaites</figcaption>
       </figure>
     </section>
 
@@ -268,7 +277,7 @@
           <small id="total-avis">0 avis</small>
         </div>
 
-        <button class="btn btn-avis" type="button" id="ouvrir-modale">✏️ Rédiger un avis</button>
+        <button class="btn btn-avis" type="button" id="ouvrir-modale"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#crayon"/></svg>Rédiger un avis</button>
 
         <div class="repartition" id="repartition" aria-label="Filtrer par note"></div>
       </div>
@@ -286,6 +295,7 @@
         </div>
         <div class="outils">
           <label class="recherche">
+            <svg class="ico" aria-hidden="true"><use href="images/icones.svg#loupe"/></svg>
             <span class="visually-hidden" hidden>Rechercher</span>
             <input type="search" id="recherche" placeholder="Rechercher dans les avis (ex. haie, vitres…)" aria-label="Rechercher dans les avis">
           </label>
@@ -311,8 +321,8 @@
       <div class="cta-reserver">
         <h2 id="titre-cta">Envie d'être le prochain avis 5 étoiles ?</h2>
         <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Le devis est gratuit, avec une réponse sous 24 h.</p>
-        <a class="btn" href="tarifs.html#devis">📅 Réserver Elouan</a>
-        <a class="btn btn-secondaire" href="tel:+33600000000">📞 06 00 00 00 00</a>
+        <a class="btn" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Faire mon devis</a>
+        <a class="btn btn-secondaire" href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
         <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
       </div>
     </section>
@@ -321,22 +331,22 @@
       <h2 id="titre-suite">Continuer la visite</h2>
       <div class="autres-pages">
         <a class="lien-page" href="index.html">
-          <span class="picto" aria-hidden="true">🏡</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#maison"/></svg></span>
           <h3>Accueil</h3>
           <p>Tous les services d'Elouan en un coup d'œil.</p>
-          <span class="fleche-lien">Découvrir →</span>
+          <span class="fleche-lien">Découvrir <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
         <a class="lien-page" href="notre-histoire.html">
-          <span class="picto" aria-hidden="true">📖</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#livre"/></svg></span>
           <h3>Notre histoire</h3>
           <p>Comment Elouan est devenu le pro multi-tâches du quartier.</p>
-          <span class="fleche-lien">Lire l'histoire →</span>
+          <span class="fleche-lien">Lire l'histoire <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
         <a class="lien-page" href="tarifs.html">
-          <span class="picto" aria-hidden="true">💶</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg></span>
           <h3>Tarifs</h3>
           <p>Des prix clairs, des forfaits, et le crédit d'impôt expliqué.</p>
-          <span class="fleche-lien">Voir les tarifs →</span>
+          <span class="fleche-lien">Voir les tarifs <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
       </div>
     </section>
@@ -358,10 +368,10 @@
       <label>Ville<input name="ville" maxlength="30" placeholder="Ex. Rezé"></label>
       <label>Service
         <select name="domaine">
-          <option value="entretien">🧹 Entretien</option>
-          <option value="nettoyage">🧽 Nettoyage</option>
-          <option value="jardinage">🌿 Jardinage</option>
-          <option value="coup-de-main">🔧 Petit coup de main</option>
+          <option value="entretien">Entretien</option>
+          <option value="nettoyage">Nettoyage</option>
+          <option value="jardinage">Jardinage</option>
+          <option value="coup-de-main">Petit coup de main</option>
         </select>
       </label>
       <label>Votre avis<textarea name="texte" required maxlength="600" placeholder="Racontez votre expérience…"></textarea></label>
@@ -378,7 +388,7 @@
   <footer class="pied">
     <div class="pied-grille">
       <div class="pied-marque">
-        <a class="logo-pied" href="index.html">🌿 Elouan Ménage</a>
+        <a class="logo logo-pied" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
         <p>Un seul pro pour toute la maison.</p>
         <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
       </div>
@@ -388,15 +398,19 @@
         <a href="notre-histoire.html">Notre histoire</a>
         <a href="tarifs.html">Tarifs</a>
         <a href="avis.html">Avis</a>
+        <a href="devis.html">Devis gratuit</a>
       </div>
       <div class="pied-liens">
         <h3>Contact</h3>
-        <a href="tel:+33600000000">06 00 00 00 00</a>
-        <a href="mailto:contact@elouan-menage.fr">contact@elouan-menage.fr</a>
-        <p>Du lundi au samedi, 8 h–19 h</p>
+        <a href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#mail"/></svg>contact@elouan-menage.fr</a>
+        <p><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>Du lundi au samedi, 8 h–19 h</p>
       </div>
     </div>
-    <p class="pied-bas">&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+    <div class="pied-bas">
+      <p>&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+      <p class="pied-legal"><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#donnees">Données personnelles</a> · <button type="button" class="lien-cookies" data-cookies>Gérer les cookies</button></p>
+    </div>
   </footer>
   <script src="site.js" defer></script>
 
@@ -406,7 +420,7 @@
     const AVIS = [
       { prenom: "Claire", ville: "Saint-Herblain", note: 5, jours: 3, domaine: "jardinage", guide: 14, utiles: 12,
         texte: "Elouan a taillé toute notre haie de thuyas et, au passage, il a sculpté un petit pouce levé dans le buis. Mes enfants l'adorent ! Travail propre, déchets évacués, rien à redire.",
-        reponse: "Merci Claire ! Le pouce était offert, il fallait bien qu'il ait un copain dans le jardin 😄" },
+        reponse: "Merci Claire ! Le pouce était offert, il fallait bien qu'il ait un copain dans le jardin !" },
       { prenom: "Marc", ville: "Nantes", note: 5, jours: 9, domaine: "nettoyage", guide: 32, utiles: 8,
         texte: "Terrasse en dalles complètement verte après l'hiver. Deux heures de nettoyeur haute pression plus tard, on aurait dit du neuf. Il a même nettoyé mon nain de jardin, qui n'avait rien demandé." },
       { prenom: "Sophie", ville: "Rezé", note: 5, jours: 16, domaine: "entretien", guide: 3, utiles: 5,
@@ -445,11 +459,12 @@
     ];
 
     const DOMAINES = {
-      "entretien":    { nom: "Entretien",    picto: "🧹" },
-      "nettoyage":    { nom: "Nettoyage",    picto: "🧽" },
-      "jardinage":    { nom: "Jardinage",    picto: "🌿" },
-      "coup-de-main": { nom: "Coup de main", picto: "🔧" }
+      "entretien":    { nom: "Entretien",    picto: "balai" },
+      "nettoyage":    { nom: "Nettoyage",    picto: "eponge" },
+      "jardinage":    { nom: "Jardinage",    picto: "feuille" },
+      "coup-de-main": { nom: "Coup de main", picto: "cle" }
     };
+    const ico = (n) => `<svg class="ico" aria-hidden="true"><use href="images/icones.svg#${n}"/></svg>`;
     const COULEURS = ["#2F6B4F", "#3A7CA5", "#B5652B", "#7A4E9C", "#C0392B", "#1F7A7A", "#8A6D1F"];
     const JOUR = 24 * 60 * 60 * 1000;
     const maintenant = new Date();
@@ -495,7 +510,7 @@
 
     function domaines() {
       return [{ id: "tout", nom: "Tous les services", test: () => true },
-        ...Object.entries(DOMAINES).map(([id, d]) => ({ id, nom: `${d.picto} ${d.nom}`, test: (a) => a.domaine === id }))];
+        ...Object.entries(DOMAINES).map(([id, d]) => ({ id, nom: `${ico(d.picto)} ${d.nom}`, test: (a) => a.domaine === id }))];
     }
 
     function dessinerPuces(conteneur, liste, cle) {
@@ -589,12 +604,12 @@
           <span>${dateRelative(a.date)}</span>
           ${a.nouveau ? '<span class="nouveau">Nouveau</span>' : ""}
         </div>
-        <span class="badge badge-${a.domaine}" style="align-self:flex-start">${d.picto} ${d.nom}</span>
+        <span class="badge badge-${a.domaine}" style="align-self:flex-start">${ico(d.picto)} ${d.nom}</span>
         <p class="texte-avis">${echapper(a.texte)}</p>
         <button class="lire-plus" type="button" hidden>Plus</button>
         ${reponse}
         <div class="pied-carte">
-          <button class="utile" type="button" aria-pressed="${a.jaime}">👍 Utile · <span>${a.utiles + a.jaime}</span></button>
+          <button class="utile" type="button" aria-pressed="${a.jaime}">${ico("pouce")} Utile · <span>${a.utiles + a.jaime}</span></button>
         </div>
       </article>`;
     }
@@ -608,7 +623,7 @@
         piste.classList.remove("sortie");
         piste.innerHTML = liste.length
           ? liste.map(carte).join("")
-          : `<div class="vide-etat" style="flex:1"><span>🧐</span>Aucun avis ne correspond à ces filtres.<br><button class="btn btn-secondaire" type="button" id="reinitialiser" style="margin-top:1rem">Réinitialiser les filtres</button></div>`;
+          : `<div class="vide-etat" style="flex:1"><span>${ico("loupe")}</span>Aucun avis ne correspond à ces filtres.<br><button class="btn btn-secondaire" type="button" id="reinitialiser" style="margin-top:1rem">Réinitialiser les filtres</button></div>`;
         piste.scrollLeft = 0;
         piste.querySelectorAll(".carte-avis").forEach((c) => {
           const t = c.querySelector(".texte-avis");
@@ -704,7 +719,7 @@
       });
       e.target.reset();
       reinitialiser();
-      montrerToast("Merci ! Votre avis apparaît en tête de liste 🎉");
+      montrerToast("Merci ! Votre avis apparaît en tête de liste.");
     });
 
     function montrerToast(msg) {
@@ -722,7 +737,7 @@
         obs.unobserve(en.target);
         if (en.target.querySelector("#note-moyenne")) dessinerResume(true);
       });
-    }, { threshold: 0.15 });
+    }, { rootMargin: "0px 0px -8% 0px" });
     document.querySelectorAll(".revele").forEach((s) => obs.observe(s));
 
     // Note de la banderole, calculée comme la note moyenne de la fiche
