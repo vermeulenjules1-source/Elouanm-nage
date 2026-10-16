@@ -7,13 +7,38 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
+  <header class="entete">
+    <div class="banderole" aria-label="Informations pratiques">
+      <div class="banderole-defile">
+        <ul class="banderole-liste">
+          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
+          <li>📞 06 00 00 00 00</li>
+          <li>🕗 Lun–sam · 8 h–19 h</li>
+          <li>💶 50 % de crédit d'impôt immédiat</li>
+          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
+          <li>📍 Nantes et 20 km autour</li>
+          <li>⚡ Devis gratuit sous 24 h</li>
+        </ul>
+        <ul class="banderole-liste" aria-hidden="true">
+          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
+          <li>📞 06 00 00 00 00</li>
+          <li>🕗 Lun–sam · 8 h–19 h</li>
+          <li>💶 50 % de crédit d'impôt immédiat</li>
+          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
+          <li>📍 Nantes et 20 km autour</li>
+          <li>⚡ Devis gratuit sous 24 h</li>
+        </ul>
+      </div>
+    </div>
+    <nav aria-label="Navigation principale">
       <a class="logo" href="index.html">Elouan Ménage</a>
-      <a href="index.html">Accueil</a>
-      <a href="notre-histoire.html" aria-current="page">Notre histoire</a>
-      <a href="tarifs.html">Tarifs</a>
-      <a href="avis.html">Avis</a>
+      <div class="liens-nav">
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html" aria-current="page">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+      </div>
+      <a class="btn btn-nav" href="tarifs.html#devis">Réserver</a>
     </nav>
   </header>
 
@@ -25,8 +50,8 @@
       <p>Depuis 2021, Elouan entretient les maisons et les jardins de ses clients. Voici pourquoi il a choisi de tout faire lui-même.</p>
     </section>
 
-    <section class="section">
-      <h2>Qui est Elouan ?</h2>
+    <section class="section revele" aria-labelledby="titre-elouan">
+      <h2 id="titre-elouan">Qui est Elouan ?</h2>
       <div class="grille">
         <img src="images/histoire-vitres-sourire.jpg" alt="Elouan lave une vitre à la raclette, un smiley dessiné dans la buée">
         <div>
@@ -37,8 +62,8 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>Nos valeurs</h2>
+    <section class="section revele" aria-labelledby="titre-valeurs">
+      <h2 id="titre-valeurs">Nos valeurs</h2>
       <div class="grille">
         <article class="carte">
           <h3>Fiabilité</h3>
@@ -59,8 +84,8 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>Quelques dates</h2>
+    <section class="section revele" aria-labelledby="titre-dates">
+      <h2 id="titre-dates">Quelques dates</h2>
       <div class="grille">
         <article class="carte">
           <h3>2021</h3>
@@ -78,16 +103,64 @@
       </div>
     </section>
 
-    <section class="hero">
-      <h2>Toute votre maison, en un seul passage</h2>
-      <p>Consultez les prix et demandez votre devis. Avec l'avance immédiate de crédit d'impôt, vous ne payez que la moitié.</p>
-      <a class="btn" href="tarifs.html">Demander un devis</a>
-      <a class="btn btn-secondaire" href="avis.html">Lire les avis</a>
+    <section class="section revele" aria-labelledby="titre-cta">
+      <div class="cta-reserver">
+        <h2 id="titre-cta">Une maison propre, un jardin net, du temps pour vous</h2>
+        <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Le devis est gratuit, avec une réponse sous 24 h.</p>
+        <a class="btn" href="tarifs.html#devis">📅 Réserver Elouan</a>
+        <a class="btn btn-secondaire" href="tel:+33600000000">📞 06 00 00 00 00</a>
+        <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
+      </div>
+    </section>
+
+    <section class="section revele" aria-labelledby="titre-suite">
+      <h2 id="titre-suite">Continuer la visite</h2>
+      <div class="autres-pages">
+        <a class="lien-page" href="index.html">
+          <span class="picto" aria-hidden="true">🏡</span>
+          <h3>Accueil</h3>
+          <p>Tous les services d'Elouan en un coup d'œil.</p>
+          <span class="fleche-lien">Découvrir →</span>
+        </a>
+        <a class="lien-page" href="tarifs.html">
+          <span class="picto" aria-hidden="true">💶</span>
+          <h3>Tarifs</h3>
+          <p>Des prix clairs, des forfaits, et le crédit d'impôt expliqué.</p>
+          <span class="fleche-lien">Voir les tarifs →</span>
+        </a>
+        <a class="lien-page" href="avis.html">
+          <span class="picto" aria-hidden="true">⭐</span>
+          <h3>Avis</h3>
+          <p>Ce que les clients disent d'Elouan, sans filtre.</p>
+          <span class="fleche-lien">Lire les avis →</span>
+        </a>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Elouan Ménage</p>
+  <footer class="pied">
+    <div class="pied-grille">
+      <div class="pied-marque">
+        <a class="logo-pied" href="index.html">🌿 Elouan Ménage</a>
+        <p>Un seul pro pour toute la maison.</p>
+        <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
+      </div>
+      <div class="pied-liens">
+        <h3>Le site</h3>
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+      </div>
+      <div class="pied-liens">
+        <h3>Contact</h3>
+        <a href="tel:+33600000000">06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr">contact@elouan-menage.fr</a>
+        <p>Du lundi au samedi, 8 h–19 h</p>
+      </div>
+    </div>
+    <p class="pied-bas">&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
   </footer>
+  <script src="site.js" defer></script>
 </body>
 </html>
