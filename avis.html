@@ -7,6 +7,79 @@
   <link rel="stylesheet" href="style.css">
   <style>
     /* Styles propres à la page Avis (Jules) */
+
+    /* En-tête amélioré : collant, avec banderole et bouton Réserver */
+    .entete {
+      position: sticky; top: 0; z-index: 20;
+      background: var(--fond);
+      border-bottom: 1px solid transparent;
+      transition: box-shadow .3s, border-color .3s;
+    }
+    main section { scroll-margin-top: 110px; }
+    .entete.defile { box-shadow: 0 4px 18px rgba(31, 42, 36, 0.10); border-color: #dbe4dc; }
+    .entete nav { transition: padding .3s; }
+    .entete.defile nav { padding-top: .55rem; padding-bottom: .55rem; }
+    .liens-nav { display: flex; gap: 1.5rem; }
+    .liens-nav a { position: relative; padding: .25rem 0; }
+    .liens-nav a::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+      background: var(--vert); border-radius: 2px;
+      transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.8,.2,1);
+    }
+    .liens-nav a:hover::after, .liens-nav a[aria-current="page"]::after { transform: scaleX(1); }
+    nav .btn-nav { margin: 0 0 0 .5rem; padding: .55rem 1.25rem; color: #fff; font-size: .95rem; box-shadow: 0 4px 12px rgba(47, 107, 79, .3); }
+    nav .btn-nav:hover { color: #fff; }
+
+    /* Banderole verte qui défile */
+    .banderole {
+      background: linear-gradient(90deg, var(--vert-fonce), var(--vert) 50%, var(--vert-fonce));
+      color: #fff; overflow: hidden; font-size: .85rem; font-weight: 600;
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    }
+    .banderole-defile { display: flex; width: max-content; animation: defile 38s linear infinite; }
+    .banderole:hover .banderole-defile { animation-play-state: paused; }
+    .banderole-liste { display: flex; margin: 0; padding: .45rem 0; list-style: none; }
+    .banderole-liste li { padding: 0 1.75rem; white-space: nowrap; position: relative; }
+    .banderole-liste li::after { content: "•"; position: absolute; right: -.2rem; color: var(--soleil); }
+    @keyframes defile { to { transform: translateX(-50%); } }
+
+    /* Liens vers les autres pages */
+    .autres-pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .lien-page {
+      position: relative; display: block; overflow: hidden;
+      background: #fff; border-radius: var(--rayon); box-shadow: var(--ombre);
+      padding: 1.5rem; text-decoration: none; color: var(--texte);
+      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    }
+    .lien-page:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(31, 42, 36, .15); }
+    .lien-page .picto { font-size: 2rem; display: block; transition: transform .3s; }
+    .lien-page:hover .picto { transform: scale(1.15) rotate(-6deg); }
+    .lien-page h3 { margin: .5rem 0 .25rem; }
+    .lien-page p { margin: 0; color: var(--texte-doux); font-size: .95rem; }
+    .lien-page .fleche-lien { display: inline-block; margin-top: .75rem; font-weight: 600; color: var(--vert); transition: transform .3s; }
+    .lien-page:hover .fleche-lien { transform: translateX(6px); }
+
+    /* Rappel de réservation */
+    .cta-reserver {
+      position: relative; overflow: hidden; text-align: center;
+      background: linear-gradient(135deg, var(--vert-fonce), var(--vert));
+      color: #fff; border-radius: calc(var(--rayon) * 1.5); padding: 3rem 1.5rem;
+    }
+    .cta-reserver::before, .cta-reserver::after {
+      content: "🌿"; position: absolute; font-size: 7rem; opacity: .12; pointer-events: none;
+      animation: flotte 6s ease-in-out infinite;
+    }
+    .cta-reserver::before { left: -1rem; top: -1.5rem; }
+    .cta-reserver::after { content: "🧽"; right: -1rem; bottom: -2rem; animation-delay: -3s; }
+    @keyframes flotte { 50% { transform: translateY(12px) rotate(8deg); } }
+    .cta-reserver h2 { color: #fff; margin: 0 0 .5rem; }
+    .cta-reserver p { margin: 0 auto 1.5rem; max-width: 520px; opacity: .92; }
+    .cta-reserver .btn { background: var(--soleil); color: var(--texte); font-size: 1.05rem; padding: .85rem 1.75rem; animation: pulse 2.4s ease-in-out infinite; }
+    .cta-reserver .btn:hover { background: #ffc85e; }
+    .cta-reserver .btn-secondaire { background: transparent; color: #fff; border-color: #fff; animation: none; }
+    .cta-reserver .btn-secondaire:hover { background: #fff; color: var(--vert-fonce); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(242, 181, 68, .55); } 50% { box-shadow: 0 0 0 12px rgba(242, 181, 68, 0); } }
+    .cta-reserver small { display: block; margin-top: 1rem; opacity: .8; }
     .intro-avis {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
@@ -205,6 +278,7 @@
       .fiche { grid-template-columns: 1fr auto; }
       .repartition { grid-column: 1 / -1; grid-row: 3; }
       .fiche .btn-avis { grid-column: 1 / -1; justify-self: start; }
+      .autres-pages { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       h1 { font-size: 2rem; }
@@ -214,6 +288,12 @@
       .fiche .btn-avis { justify-self: center; }
       .repartition { grid-row: auto; }
       .rangee { flex-direction: column; align-items: stretch; gap: .35rem; }
+      .entete nav { gap: .5rem 1rem; }
+      .liens-nav { order: 3; width: 100%; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
+      .liens-nav::-webkit-scrollbar { display: none; }
+      .liens-nav a { white-space: nowrap; }
+      nav .btn-nav { padding: .45rem 1rem; font-size: .9rem; }
+      .cta-reserver { padding: 2.25rem 1.25rem; }
       .recherche { max-width: none; }
       .outils select { flex: 1 1 100%; }
       .fleche { display: none; }
@@ -225,13 +305,38 @@
   </style>
 </head>
 <body>
-  <header>
+  <header class="entete" id="entete">
+    <div class="banderole" aria-label="Informations pratiques">
+      <div class="banderole-defile">
+        <ul class="banderole-liste">
+          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
+          <li>📞 06 00 00 00 00</li>
+          <li>🕗 Lun–sam · 8 h–19 h</li>
+          <li>💶 50 % de crédit d'impôt immédiat</li>
+          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
+          <li>📍 Nantes et 20 km autour</li>
+          <li>⚡ Devis gratuit sous 24 h</li>
+        </ul>
+        <ul class="banderole-liste" aria-hidden="true">
+          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
+          <li>📞 06 00 00 00 00</li>
+          <li>🕗 Lun–sam · 8 h–19 h</li>
+          <li>💶 50 % de crédit d'impôt immédiat</li>
+          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
+          <li>📍 Nantes et 20 km autour</li>
+          <li>⚡ Devis gratuit sous 24 h</li>
+        </ul>
+      </div>
+    </div>
     <nav>
       <a class="logo" href="index.html">Elouan Ménage</a>
-      <a href="index.html">Accueil</a>
-      <a href="notre-histoire.html">Notre histoire</a>
-      <a href="tarifs.html">Tarifs</a>
-      <a href="avis.html" aria-current="page">Avis</a>
+      <div class="liens-nav">
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html" aria-current="page">Avis</a>
+      </div>
+      <a class="btn btn-nav" href="tarifs.html">Réserver</a>
     </nav>
   </header>
 
@@ -302,6 +407,40 @@
       </div>
       <div class="points" id="points"></div>
     </section>
+
+    <section class="section revele" aria-labelledby="titre-cta">
+      <div class="cta-reserver">
+        <h2 id="titre-cta">Envie d'être le prochain avis 5 étoiles ?</h2>
+        <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Le devis est gratuit, avec une réponse sous 24 h.</p>
+        <a class="btn" href="tarifs.html">📅 Réserver Elouan</a>
+        <a class="btn btn-secondaire" href="tel:+33600000000">📞 06 00 00 00 00</a>
+        <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
+      </div>
+    </section>
+
+    <section class="section revele" aria-labelledby="titre-suite">
+      <h2 id="titre-suite">Continuer la visite</h2>
+      <div class="autres-pages">
+        <a class="lien-page" href="index.html">
+          <span class="picto" aria-hidden="true">🏡</span>
+          <h3>Accueil</h3>
+          <p>Tous les services d'Elouan en un coup d'œil.</p>
+          <span class="fleche-lien">Découvrir →</span>
+        </a>
+        <a class="lien-page" href="notre-histoire.html">
+          <span class="picto" aria-hidden="true">📖</span>
+          <h3>Notre histoire</h3>
+          <p>Comment Elouan est devenu le pro multi-tâches du quartier.</p>
+          <span class="fleche-lien">Lire l'histoire →</span>
+        </a>
+        <a class="lien-page" href="tarifs.html">
+          <span class="picto" aria-hidden="true">💶</span>
+          <h3>Tarifs</h3>
+          <p>Des prix clairs, des forfaits, et le crédit d'impôt expliqué.</p>
+          <span class="fleche-lien">Voir les tarifs →</span>
+        </a>
+      </div>
+    </section>
   </main>
 
   <dialog id="modale" aria-labelledby="titre-modale">
@@ -361,6 +500,9 @@
         texte: "À 78 ans, je ne peux plus tondre ni ramasser les feuilles. Elouan vient tous les quinze jours, il est gentil et prend toujours le temps de discuter. Je recommande à tous mes voisins." },
       { prenom: "Inès", ville: "Nantes", note: 5, jours: 71, domaine: "entretien", guide: 11, utiles: 6,
         texte: "Entretien de notre location saisonnière entre deux voyageurs : lits faits, salle de bain impeccable, petit mot d'accueil. Nos notes Airbnb ont grimpé depuis qu'il s'en occupe." },
+      { prenom: "Patrick", ville: "Thouaré-sur-Loire", note: 2, jours: 61, domaine: "entretien", guide: 2, utiles: 47,
+        texte: "Comment dire… Elouan s'est trompé de numéro et il est entré chez mon VOISIN avec la clé cachée sous le pot de fleurs (même pot, même maison, lotissement oblige). Il a fait tout le ménage en chantant à tue-tête avec l'aspirateur, jusqu'à ce que le voisin, qui faisait la sieste, descende en caleçon à fleurs, armé d'une raclette à fromage. Ils ont fini par prendre un café ensemble. Pendant ce temps, MA maison est restée sale, et le voisin, à qui on ne parlait plus depuis 12 ans, me demande maintenant tous les jours quand Elouan revient.",
+        reponse: "Patrick, je vous dois des excuses (et un ménage gratuit, déjà effectué). Depuis, je vérifie le numéro DEUX fois et je ne chante plus pendant le travail. Votre voisin vous passe le bonjour, et moi je garde la raclette à fromage en souvenir." },
       { prenom: "Romain", ville: "Carquefou", note: 3, jours: 96, domaine: "nettoyage", guide: 5, utiles: 1,
         texte: "Bon nettoyage de fin de chantier, mais l'intervention a commencé avec une heure de retard à cause de la circulation. Le résultat final reste très correct.",
         reponse: "Bonjour Romain, désolé pour ce retard, vous auriez dû être prévenu plus tôt. Depuis, j'envoie un SMS dès que j'ai un imprévu. Merci pour votre retour honnête." },
@@ -662,6 +804,14 @@
       });
     }, { threshold: 0.15 });
     document.querySelectorAll(".revele").forEach((s) => obs.observe(s));
+
+    // Note de la banderole, calculée comme la note moyenne de la fiche
+    const noteBanderole = (AVIS.reduce((t, a) => t + a.note, 0) / AVIS.length).toFixed(1).replace(".", ",");
+    document.querySelectorAll(".note-banderole").forEach((e) => (e.textContent = noteBanderole));
+
+    // Ombre de l'en-tête quand on fait défiler la page
+    const entete = $("#entete");
+    addEventListener("scroll", () => entete.classList.toggle("defile", scrollY > 10), { passive: true });
 
     // Premier affichage
     dessinerPuces($("#puces-periode"), periodes(), "periode");
