@@ -315,13 +315,14 @@ nav .btn-nav:hover { color: #fff; }
 
 @media (max-width: 900px) {
   .autres-pages { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
+  /* Tablette et téléphone : le menu passe sur sa propre ligne sous le logo */
   .entete nav { gap: .5rem 1rem; }
-  main section { scroll-margin-top: 150px; }
   .liens-nav { order: 3; width: 100%; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
   .liens-nav::-webkit-scrollbar { display: none; }
   .liens-nav a { white-space: nowrap; }
+}
+@media (max-width: 640px) {
+  main section { scroll-margin-top: 150px; }
   nav .btn-nav { padding: .45rem 1rem; font-size: .9rem; }
   .cta-reserver { padding: 2.25rem 1.25rem; }
   .pied-grille { grid-template-columns: 1fr 1fr; }
