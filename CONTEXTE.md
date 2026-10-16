@@ -60,6 +60,31 @@ Prix indicatifs inventés, à ajuster :
 - La note moyenne affichée en haut, par exemple **4,9 / 5**.
 - Varier les services cités pour montrer la polyvalence d'Elouan.
 
+## Les photos
+
+Elouan porte toujours sa tenue de travail : polo taupe avec le logo, pantalon de travail beige. Un **clin d'œil humoristique** est caché dans chaque photo, c'est la signature de l'entreprise.
+
+**Chaque photo n'est utilisée que sur UNE page.** Pas de doublon : n'utilisez pas la photo d'un autre.
+
+| Page | Responsable | Photo (dossier `images/`) | Ce qu'on voit | Clin d'œil |
+|---|---|---|---|---|
+| Accueil | Rachel | `accueil-terrasse-nain.jpg` | Nettoyage de terrasse au nettoyeur haute pression | Un nain de jardin à moustache, et Elouan qui rêve d'un nain à monocle |
+| Notre histoire | Edgar | `histoire-vitres-sourire.jpg` | Lavage de vitres à la raclette | Un smiley et des yeux dessinés dans la buée |
+| Tarifs | Elouan | `tarifs-aspirateur-salon.jpg` | Aspirateur dans un salon lumineux | Une perruche dans un nid sur l'aspirateur, un portrait moustachu au mur |
+| Avis | Jules | `avis-haie-pouce.jpg` | Taille de haie au sécateur | Une haie taillée en pouce levé 👍, et une coccinelle |
+
+Pourquoi ce choix :
+- **Accueil :** c'est la photo la plus grande et la plus nette, idéale pour le bandeau d'accroche.
+- **Histoire :** Elouan au travail, de près, pour montrer la personne.
+- **Tarifs :** le ménage intérieur est la prestation la plus demandée.
+- **Avis :** le pouce levé dit « clients satisfaits ».
+
+Utilisation dans le code :
+
+```html
+<img src="images/accueil-terrasse-nain.jpg" alt="Elouan nettoie une terrasse au nettoyeur haute pression">
+```
+
 ## Coordonnées (fictives)
 
 - Téléphone : 06 00 00 00 00
