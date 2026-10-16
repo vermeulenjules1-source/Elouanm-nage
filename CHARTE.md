@@ -84,7 +84,8 @@ Gardez toujours le même pictogramme pour un même pôle, sur toutes les pages :
 
 ## Images
 
-- Privilégiez des photos lumineuses : maison claire, jardin, mains au travail. On peut prendre des photos libres de droits sur [Unsplash](https://unsplash.com) ou [Pexels](https://pexels.com).
+- Les photos officielles d'Elouan sont dans `images/`. La **répartition par page** est dans [CONTEXTE.md](CONTEXTE.md#les-photos) : une photo par page, sans doublon.
+- Si vous ajoutez d'autres images, choisissez-les lumineuses : maison claire, jardin, mains au travail. On peut les prendre libres de droits sur [Unsplash](https://unsplash.com) ou [Pexels](https://pexels.com).
 - Mettez les images dans le dossier `images/` avec des noms simples, par exemple `images/jardin-haie.jpg`.
 - Donnez toujours un texte alternatif à l'image : `<img src="…" alt="Elouan taille une haie">`.
 
