@@ -338,12 +338,20 @@ nav .btn-nav:hover { color: #fff; }
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8C15 2 25 12 38 6s24-4 37 1 25 4 43-3' fill='none' stroke='%23F2B544' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") left 100% / 100% .45em no-repeat;
   padding-bottom: .2em;
 }
-.cadre-dessin { position: relative; }
+.cadre-dessin {
+  /* Le cadre crayonné et la photo partagent la même case : la légende reste en dessous, hors du cadre */
+  display: grid;
+  position: relative;
+  isolation: isolate;
+}
+.cadre-dessin > img { grid-area: 1 / 1; }
+.cadre-dessin > figcaption { grid-row: 2; }
 .cadre-dessin::before {
-  content: ""; position: absolute; inset: -10px 10px 10px -10px; z-index: -1;
+  content: ""; grid-area: 1 / 1; position: relative; z-index: -1;
   border: 2px solid var(--vert); opacity: .35;
   border-radius: 18px 26px 14px 30px / 24px 14px 28px 16px;
-  transform: rotate(-1.2deg);
+  transform: translate(-10px, -10px) rotate(-1.2deg);
+  pointer-events: none;
 }
 
 /* Bandeau cookies (géré par site.js) */
