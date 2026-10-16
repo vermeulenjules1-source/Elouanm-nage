@@ -1,6 +1,12 @@
 # Elouan Ménage — site vitrine
 
-Site statique en HTML/CSS. Chaque page est développée sur sa propre branche :
+Site statique en HTML/CSS pour une entreprise **fictive** de services à domicile.
+
+**À lire avant de commencer :**
+- [CONTEXTE.md](CONTEXTE.md) : l'entreprise, les services, le ton, ce que doit contenir chaque page
+- [CHARTE.md](CHARTE.md) : couleurs, polices, composants prêts à l'emploi
+
+Chaque page est développée sur sa propre branche :
 
 | Page | Fichier | Branche | Responsable |
 |---|---|---|---|
@@ -15,6 +21,7 @@ Site statique en HTML/CSS. Chaque page est développée sur sa propre branche :
 git clone https://github.com/vermeulenjules1-source/Elouanm-nage.git
 cd Elouanm-nage
 git switch <ta-branche>      # ex. git switch rachel/accueil
+git pull origin main         # récupérer les dernières mises à jour communes
 # modifier ta page, puis :
 git add .
 git commit -m "Accueil : ajout de la section services"
