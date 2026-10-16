@@ -14,6 +14,10 @@ Chaque page est développée sur sa propre branche :
 | Notre histoire | `notre-histoire.html` | `edgar/notre-histoire` | Edgar |
 | Tarifs | `tarifs.html` | `elouan/tarifs` | Elouan |
 | Avis | `avis.html` | `jules/avis` | Jules |
+| Devis pré-rempli | `devis.html` | `main` | commun |
+| Mentions légales | `mentions-legales.html` | `main` | commun |
+
+Site en ligne : https://vermeulenjules1-source.github.io/Elouanm-nage/
 
 ## Travailler sur sa page
 

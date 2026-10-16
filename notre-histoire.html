@@ -4,60 +4,112 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notre histoire — Elouan Ménage</title>
+  <meta name="description" content="Depuis 2021, Elouan entretient maisons et jardins. Découvrez pourquoi il a choisi d'être multi-tâches, ses valeurs et les dates clés d'Elouan Ménage.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles propres à la page Notre histoire (Edgar) */
+    .intro-histoire { max-width: 720px; }
+    .intro-histoire h1 { margin: 0 0 .5rem; }
+    .intro-histoire p { color: var(--texte-doux); font-size: 1.15rem; margin: 0; }
+
+    .portrait { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.5rem; align-items: center; }
+    .portrait figure { margin: 0; }
+    .portrait img { display: block; box-shadow: var(--ombre); }
+    .portrait figcaption { display: flex; align-items: center; gap: .4rem; margin-top: .75rem; font-size: .9rem; color: var(--texte-doux); }
+    .citation {
+      margin: 1.5rem 0 0; padding: 1.25rem 1.5rem; background: var(--surface); border-radius: var(--rayon);
+      font-family: "Poppins", system-ui, sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--vert-fonce);
+      border-left: 4px solid var(--soleil);
+    }
+    .citation cite { display: block; margin-top: .4rem; font-family: "Inter", system-ui, sans-serif; font-size: .9rem; font-weight: 400; font-style: normal; color: var(--texte-doux); }
+    .citation cite::before { content: "— "; }
+
+    .picto-valeur {
+      display: grid; place-items: center; width: 3rem; height: 3rem; color: var(--vert); background: var(--surface);
+      border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%;
+    }
+    .picto-valeur .ico { width: 1.5rem; height: 1.5rem; }
+
+    /* Frise chronologique, tracé façon crayon */
+    .frise { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding-top: 2.25rem; }
+    .frise::before {
+      content: ""; position: absolute; left: 1rem; right: 1rem; top: .65rem; height: 3px;
+      background: repeating-linear-gradient(90deg, var(--vert) 0 14px, transparent 14px 22px); opacity: .5; border-radius: 3px;
+    }
+    .frise .carte { position: relative; }
+    .frise .carte::before {
+      content: ""; position: absolute; top: -2.15rem; left: 1.5rem; width: 1.1rem; height: 1.1rem;
+      border-radius: 50%; background: var(--soleil); border: 3px solid var(--fond); box-shadow: 0 0 0 2px var(--vert);
+    }
+    .frise h3 { font-size: 1.6rem; margin: .25rem 0; }
+    .frise .badge { display: inline-flex; align-items: center; gap: .3rem; }
+    .frise .badge .ico { width: 1em; height: 1em; }
+
+    @media (max-width: 760px) {
+      .portrait { grid-template-columns: 1fr; gap: 1.5rem; }
+      .frise { grid-template-columns: 1fr; padding-top: 0; padding-left: 2.25rem; }
+      .frise::before { left: .55rem; right: auto; top: .5rem; bottom: .5rem; width: 3px; height: auto;
+        background: repeating-linear-gradient(180deg, var(--vert) 0 14px, transparent 14px 22px); }
+      .frise .carte::before { top: 1.5rem; left: -2.15rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="entete">
     <div class="banderole" aria-label="Informations pratiques">
       <div class="banderole-defile">
         <ul class="banderole-liste">
-          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
-          <li>📞 06 00 00 00 00</li>
-          <li>🕗 Lun–sam · 8 h–19 h</li>
-          <li>💶 50 % de crédit d'impôt immédiat</li>
-          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
-          <li>📍 Nantes et 20 km autour</li>
-          <li>⚡ Devis gratuit sous 24 h</li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
         </ul>
         <ul class="banderole-liste" aria-hidden="true">
-          <li>⭐ <span class="note-banderole">4,5</span>/5 sur Google</li>
-          <li>📞 06 00 00 00 00</li>
-          <li>🕗 Lun–sam · 8 h–19 h</li>
-          <li>💶 50 % de crédit d'impôt immédiat</li>
-          <li>🧹 Entretien · 🧽 Nettoyage · 🌿 Jardinage · 🔧 Coups de main</li>
-          <li>📍 Nantes et 20 km autour</li>
-          <li>⚡ Devis gratuit sous 24 h</li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
         </ul>
       </div>
     </div>
     <nav aria-label="Navigation principale">
-      <a class="logo" href="index.html">Elouan Ménage</a>
+      <a class="logo" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
       <div class="liens-nav">
         <a href="index.html">Accueil</a>
         <a href="notre-histoire.html" aria-current="page">Notre histoire</a>
         <a href="tarifs.html">Tarifs</a>
         <a href="avis.html">Avis</a>
       </div>
-      <a class="btn btn-nav" href="tarifs.html#devis">Réserver</a>
+      <a class="btn btn-nav" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg><span>Devis<span class="masque-etroit"> gratuit</span></span></a>
     </nav>
   </header>
 
   <main>
     <!-- Page gérée par Edgar sur la branche edgar/notre-histoire -->
 
-    <section class="hero">
-      <h1>Notre histoire</h1>
+    <section class="intro-histoire revele">
+      <h1>Notre <span class="souligne">histoire</span></h1>
       <p>Depuis 2021, Elouan entretient les maisons et les jardins de ses clients. Voici pourquoi il a choisi de tout faire lui-même.</p>
     </section>
 
     <section class="section revele" aria-labelledby="titre-elouan">
       <h2 id="titre-elouan">Qui est Elouan ?</h2>
-      <div class="grille">
-        <img src="images/histoire-vitres-sourire.jpg" alt="Elouan lave une vitre à la raclette, un smiley dessiné dans la buée">
+      <div class="portrait">
+        <figure class="cadre-dessin">
+          <img src="images/histoire-vitres-sourire.jpg" alt="Elouan lave une vitre à la raclette, un smiley dessiné dans la buée" width="638" height="414" loading="lazy">
+          <figcaption><svg class="ico" aria-hidden="true"><use href="images/icones.svg#bulle"/></svg> Le smiley dans la buée, c'est sa signature.</figcaption>
+        </figure>
         <div>
           <p>Elouan a lancé son entreprise en 2021, en auto-entrepreneur. Au départ, il y a un constat simple : pour avoir une maison propre et un jardin entretenu, beaucoup de familles devaient appeler deux ou trois prestataires et caler autant de rendez-vous.</p>
           <p>Il a donc choisi d'être <strong>multi-tâches</strong>. En un seul passage, il fait le ménage, nettoie les vitres, taille la haie ou monte le meuble resté dans son carton. Vous avez un seul interlocuteur, un seul créneau, et plusieurs tâches réglées.</p>
-          <blockquote>« Je m'occupe de tout, vous profitez. »<br>— Elouan</blockquote>
+          <blockquote class="citation">« Je m'occupe de tout, vous profitez. »<cite>Elouan</cite></blockquote>
         </div>
       </div>
     </section>
@@ -66,18 +118,22 @@
       <h2 id="titre-valeurs">Nos valeurs</h2>
       <div class="grille">
         <article class="carte">
+          <span class="picto-valeur"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#check"/></svg></span>
           <h3>Fiabilité</h3>
           <p>Elouan arrive à l'heure convenue et fait ce qui a été prévu. Vous pouvez lui confier vos clés sereinement.</p>
         </article>
         <article class="carte">
+          <span class="picto-valeur"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#cle"/></svg></span>
           <h3>Polyvalence</h3>
           <p>Ménage, vitres, jardin, petites réparations : une seule personne pour toute la maison, sans multiplier les rendez-vous.</p>
         </article>
         <article class="carte">
+          <span class="picto-valeur"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg></span>
           <h3>Proximité</h3>
           <p>Il intervient à 20 km autour de chez lui. Vous savez qui vient chez vous : c'est toujours Elouan.</p>
         </article>
         <article class="carte">
+          <span class="picto-valeur"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#coeur"/></svg></span>
           <h3>Soin du détail</h3>
           <p>Les plinthes, le dessous du canapé, les bords de la pelouse : Elouan ne s'arrête pas à ce qui se voit au premier coup d'œil.</p>
         </article>
@@ -86,13 +142,13 @@
 
     <section class="section revele" aria-labelledby="titre-dates">
       <h2 id="titre-dates">Quelques dates</h2>
-      <div class="grille">
+      <div class="frise">
         <article class="carte">
           <h3>2021</h3>
           <p>Elouan crée son entreprise en auto-entrepreneur, avec le ménage et le nettoyage.</p>
         </article>
         <article class="carte">
-          <span class="badge badge-jardinage">🌿 Jardinage</span>
+          <span class="badge badge-jardinage"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg> Jardinage</span>
           <h3>2023</h3>
           <p>Le jardinage rejoint les services : tonte, taille de haies, entretien des massifs.</p>
         </article>
@@ -106,9 +162,9 @@
     <section class="section revele" aria-labelledby="titre-cta">
       <div class="cta-reserver">
         <h2 id="titre-cta">Une maison propre, un jardin net, du temps pour vous</h2>
-        <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Le devis est gratuit, avec une réponse sous 24 h.</p>
-        <a class="btn" href="tarifs.html#devis">📅 Réserver Elouan</a>
-        <a class="btn btn-secondaire" href="tel:+33600000000">📞 06 00 00 00 00</a>
+        <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Votre devis est prêt en 2 minutes.</p>
+        <a class="btn" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Faire mon devis</a>
+        <a class="btn btn-secondaire" href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
         <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
       </div>
     </section>
@@ -117,22 +173,22 @@
       <h2 id="titre-suite">Continuer la visite</h2>
       <div class="autres-pages">
         <a class="lien-page" href="index.html">
-          <span class="picto" aria-hidden="true">🏡</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#maison"/></svg></span>
           <h3>Accueil</h3>
           <p>Tous les services d'Elouan en un coup d'œil.</p>
-          <span class="fleche-lien">Découvrir →</span>
+          <span class="fleche-lien">Découvrir <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
         <a class="lien-page" href="tarifs.html">
-          <span class="picto" aria-hidden="true">💶</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg></span>
           <h3>Tarifs</h3>
           <p>Des prix clairs, des forfaits, et le crédit d'impôt expliqué.</p>
-          <span class="fleche-lien">Voir les tarifs →</span>
+          <span class="fleche-lien">Voir les tarifs <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
         <a class="lien-page" href="avis.html">
-          <span class="picto" aria-hidden="true">⭐</span>
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg></span>
           <h3>Avis</h3>
           <p>Ce que les clients disent d'Elouan, sans filtre.</p>
-          <span class="fleche-lien">Lire les avis →</span>
+          <span class="fleche-lien">Lire les avis <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
         </a>
       </div>
     </section>
@@ -141,7 +197,7 @@
   <footer class="pied">
     <div class="pied-grille">
       <div class="pied-marque">
-        <a class="logo-pied" href="index.html">🌿 Elouan Ménage</a>
+        <a class="logo logo-pied" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
         <p>Un seul pro pour toute la maison.</p>
         <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
       </div>
@@ -151,15 +207,19 @@
         <a href="notre-histoire.html">Notre histoire</a>
         <a href="tarifs.html">Tarifs</a>
         <a href="avis.html">Avis</a>
+        <a href="devis.html">Devis gratuit</a>
       </div>
       <div class="pied-liens">
         <h3>Contact</h3>
-        <a href="tel:+33600000000">06 00 00 00 00</a>
-        <a href="mailto:contact@elouan-menage.fr">contact@elouan-menage.fr</a>
-        <p>Du lundi au samedi, 8 h–19 h</p>
+        <a href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#mail"/></svg>contact@elouan-menage.fr</a>
+        <p><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>Du lundi au samedi, 8 h–19 h</p>
       </div>
     </div>
-    <p class="pied-bas">&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+    <div class="pied-bas">
+      <p>&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+      <p class="pied-legal"><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#donnees">Données personnelles</a> · <button type="button" class="lien-cookies" data-cookies>Gérer les cookies</button></p>
+    </div>
   </footer>
   <script src="site.js" defer></script>
 </body>

@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devis gratuit — Elouan Ménage</title>
+  <meta name="description" content="Composez votre devis Elouan Ménage en 2 minutes : ménage, nettoyage, jardinage, coups de main. Crédit d'impôt de 50 % calculé automatiquement.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles propres à la page Devis */
+    .intro-devis { max-width: 720px; }
+    .intro-devis h1 { margin: 0 0 .5rem; }
+    .intro-devis p { color: var(--texte-doux); font-size: 1.1rem; margin: 0; }
+
+    .devis { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 2rem; align-items: start; margin-top: 2rem; }
+    .formulaire { display: grid; gap: 1.5rem; }
+    fieldset { min-width: 0; border: 0; margin: 0; padding: 1.25rem; background: #fff; border-radius: var(--rayon); box-shadow: var(--ombre); }
+    legend { float: left; width: 100%; padding: 0; margin-bottom: .75rem; font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--vert); display: flex; align-items: center; gap: .5rem; }
+    legend + * { clear: both; }
+    legend .etape { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--vert); color: #fff; font-size: .85rem; }
+
+    .prestation {
+      display: grid; grid-template-columns: auto 1fr auto; gap: .25rem .75rem; align-items: center;
+      padding: .75rem; border: 2px solid #e3e9e4; border-radius: 12px; margin-bottom: .6rem;
+      transition: border-color .2s, background .2s;
+    }
+    .prestation:has(input[type=checkbox]:checked) { border-color: var(--vert); background: #F4F8F4; }
+    .prestation input[type=checkbox] { width: 1.2rem; height: 1.2rem; accent-color: var(--vert); }
+    .prestation .nom { display: flex; align-items: center; gap: .5rem; font-weight: 600; }
+    .prestation .nom .ico { color: var(--vert); width: 1.3rem; height: 1.3rem; }
+    .prestation .prix { color: var(--texte-doux); font-size: .9rem; white-space: nowrap; }
+    .prestation .reglage { grid-column: 2 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-size: .9rem; color: var(--texte-doux); }
+    .prestation:not(:has(input[type=checkbox]:checked)) .reglage { display: none; }
+
+    .compteur-h { display: inline-flex; align-items: center; border: 1px solid #d5ddd6; border-radius: 999px; background: #fff; }
+    .compteur-h button { width: 2rem; height: 2rem; border: 0; background: none; font-size: 1.1rem; cursor: pointer; color: var(--vert); border-radius: 50%; }
+    .compteur-h button:hover { background: var(--surface); }
+    .compteur-h output { min-width: 2.5rem; text-align: center; font-weight: 600; color: var(--texte); }
+
+    .champs { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .champs .large { grid-column: 1 / -1; }
+    .formulaire label.champ { display: grid; gap: .3rem; font-size: .9rem; font-weight: 600; }
+    .formulaire input:not([type=checkbox]):not([type=radio]), .formulaire select, .formulaire textarea {
+      font: inherit; font-weight: 400; padding: .6rem .8rem; border: 1px solid #d5ddd6; border-radius: 8px; background: #fff; width: 100%;
+    }
+    .formulaire textarea { min-height: 90px; resize: vertical; }
+    .frequences { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .frequences label { position: relative; }
+    .frequences input { position: absolute; opacity: 0; }
+    .frequences span { display: block; padding: .45rem .9rem; border: 1px solid #d5ddd6; border-radius: 999px; background: #fff; cursor: pointer; font-size: .9rem; transition: background .2s, color .2s; }
+    .frequences input:checked + span { background: var(--vert); border-color: var(--vert); color: #fff; }
+    .frequences input:focus-visible + span { outline: 3px solid var(--bleu); outline-offset: 2px; }
+
+    /* Le devis, façon document papier */
+    .colonne-devis { position: sticky; top: 8.5rem; }
+    .papier {
+      background: #fff; border-radius: 6px; padding: 1.75rem; position: relative;
+      box-shadow: 0 1px 0 #e9e4d8, 0 12px 32px rgba(31, 42, 36, .14);
+      background-image: linear-gradient(var(--vert), var(--vert)); background-size: 100% 6px; background-repeat: no-repeat;
+    }
+    .papier-tete { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 2px dashed #e3e9e4; padding-bottom: 1rem; }
+    .papier-tete .logo { pointer-events: none; }
+    .papier-ref { text-align: right; font-size: .85rem; color: var(--texte-doux); }
+    .papier-ref strong { display: block; color: var(--texte); font-family: "Poppins", system-ui, sans-serif; font-size: 1.15rem; }
+    .papier-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; font-size: .88rem; }
+    .papier-parties h3 { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--texte-doux); margin: 0 0 .25rem; font-family: "Inter", system-ui, sans-serif; }
+    .papier-parties p { margin: 0; }
+    .papier table { box-shadow: none; font-size: .9rem; border-radius: 8px; }
+    .papier th { font-size: .8rem; padding: .55rem .6rem; }
+    .papier td { padding: .55rem .6rem; vertical-align: top; }
+    .papier td small { display: block; color: var(--texte-doux); }
+    .papier td:nth-child(n+2), .papier th:nth-child(n+2) { text-align: right; white-space: nowrap; }
+    .papier .vide td { text-align: center !important; color: var(--texte-doux); padding: 1.5rem; }
+    .totaux { margin: 1rem 0 0 auto; width: min(100%, 300px); display: grid; gap: .35rem; font-size: .95rem; }
+    .totaux div { display: flex; justify-content: space-between; gap: 1rem; }
+    .totaux .credit { color: var(--vert); }
+    .totaux .reste { border-top: 2px solid var(--texte); padding-top: .5rem; margin-top: .25rem; font-family: "Poppins", system-ui, sans-serif; font-weight: 700; font-size: 1.25rem; }
+    .totaux .mois { font-size: .85rem; color: var(--texte-doux); }
+    .papier-pied { margin-top: 1.25rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; font-size: .78rem; color: var(--texte-doux); }
+    .signature { width: 11rem; height: 4.5rem; border: 1.5px dashed #c9d3ca; border-radius: 8px; display: grid; place-items: end center; padding-bottom: .4rem; font-size: .75rem; }
+    .tampon {
+      position: absolute; right: 1.25rem; top: 5.5rem; transform: rotate(-12deg);
+      border: 3px solid var(--soleil); color: #B07E1E; border-radius: 10px; padding: .2rem .6rem;
+      font-family: "Poppins", system-ui, sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; opacity: .85;
+    }
+    .maj { animation: maj .5s; }
+    @keyframes maj { 0% { background: #FBEFD3; } 100% { background: transparent; } }
+
+    .actions-devis { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .actions-devis .btn { margin: 0; border: 0; cursor: pointer; font-size: .95rem; }
+    .actions-devis .btn-secondaire { border: 2px solid var(--vert); }
+    .note-demo { font-size: .8rem; color: var(--texte-doux); margin-top: .75rem; }
+    .toast-devis {
+      position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, calc(100% + 2rem)); visibility: hidden;
+      background: var(--vert-fonce); color: #fff; padding: .75rem 1.25rem; border-radius: 999px; z-index: 60;
+      transition: transform .4s cubic-bezier(.2,.8,.2,1), visibility .4s;
+    }
+    .toast-devis.visible { transform: translate(-50%, 0); visibility: visible; }
+
+    @media (max-width: 900px) {
+      .devis { grid-template-columns: minmax(0, 1fr); }
+      .colonne-devis { position: static; }
+    }
+    @media (max-width: 520px) {
+      .champs, .papier-parties { grid-template-columns: 1fr; }
+      .papier { padding: 1.25rem 1rem; }
+      .papier-ref { text-align: left; }
+      .tampon { top: auto; bottom: 2rem; right: 1rem; }
+      .papier-pied { grid-template-columns: 1fr; }
+      .actions-devis .btn { flex: 1 1 100%; }
+    }
+    @media print {
+      .entete, .pied, .formulaire, .intro-devis, .actions-devis, .note-demo, .cookies, .toast-devis { display: none !important; }
+      body { background: #fff; }
+      main { padding: 0; max-width: none; }
+      .devis { display: block; margin: 0; }
+      .colonne-devis { position: static; }
+      .papier { box-shadow: none; padding: 0; }
+      .revele { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="entete">
+    <div class="banderole" aria-label="Informations pratiques">
+      <div class="banderole-defile">
+        <ul class="banderole-liste">
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
+        </ul>
+        <ul class="banderole-liste" aria-hidden="true">
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
+        </ul>
+      </div>
+    </div>
+    <nav aria-label="Navigation principale">
+      <a class="logo" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
+      <div class="liens-nav">
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+      </div>
+      <a class="btn btn-nav" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg><span>Devis<span class="masque-etroit"> gratuit</span></span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro-devis revele">
+      <h1>Votre devis en <span class="souligne">2 minutes</span></h1>
+      <p>Cochez vos prestations : le devis se remplit à droite au fur et à mesure, crédit d'impôt compris. Imprimez-le ou envoyez-le à Elouan.</p>
+    </section>
+
+    <div class="devis">
+      <form class="formulaire" id="formulaire" novalidate>
+        <fieldset>
+          <legend><span class="etape">1</span> Vos prestations</legend>
+
+          <label class="prestation">
+            <input type="checkbox" name="entretien">
+            <span class="nom"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#balai"/></svg> Ménage et entretien</span>
+            <span class="prix">30 € / h</span>
+            <span class="reglage">Durée par passage
+              <span class="compteur-h" data-cible="h-entretien"><button type="button" data-pas="-1" aria-label="Une heure de moins">−</button><output id="h-entretien">3 h</output><button type="button" data-pas="1" aria-label="Une heure de plus">+</button></span>
+            </span>
+          </label>
+
+          <label class="prestation">
+            <input type="checkbox" name="jardinage">
+            <span class="nom"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg> Jardinage</span>
+            <span class="prix">35 € / h</span>
+            <span class="reglage">Durée par passage
+              <span class="compteur-h" data-cible="h-jardinage"><button type="button" data-pas="-1" aria-label="Une heure de moins">−</button><output id="h-jardinage">2 h</output><button type="button" data-pas="1" aria-label="Une heure de plus">+</button></span>
+            </span>
+          </label>
+
+          <label class="prestation">
+            <input type="checkbox" name="nettoyage">
+            <span class="nom"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eponge"/></svg> Grand nettoyage</span>
+            <span class="prix">dès 150 €</span>
+            <span class="reglage">Logement
+              <select name="logement" aria-label="Type de logement">
+                <option value="150">Appartement (150 €)</option>
+                <option value="190">Maison jusqu'à 100 m² (190 €)</option>
+                <option value="240">Maison de plus de 100 m² (240 €)</option>
+              </select>
+            </span>
+          </label>
+
+          <label class="prestation">
+            <input type="checkbox" name="coup-de-main">
+            <span class="nom"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#cle"/></svg> Petits coups de main</span>
+            <span class="prix">30 € / h</span>
+            <span class="reglage">Durée
+              <span class="compteur-h" data-cible="h-coup-de-main"><button type="button" data-pas="-1" aria-label="Une heure de moins">−</button><output id="h-coup-de-main">1 h</output><button type="button" data-pas="1" aria-label="Une heure de plus">+</button></span>
+            </span>
+          </label>
+
+          <label class="prestation">
+            <input type="checkbox" name="maison-complete">
+            <span class="nom"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#maison"/></svg> Forfait « Maison complète »</span>
+            <span class="prix">120 €</span>
+            <span class="reglage">Ménage + jardin, 4 h en une seule visite</span>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="etape">2</span> À quel rythme ?</legend>
+          <div class="frequences" role="radiogroup" aria-label="Fréquence des passages">
+            <label><input type="radio" name="frequence" value="1" data-nom="Ponctuel" checked><span>Une seule fois</span></label>
+            <label><input type="radio" name="frequence" value="4.33" data-nom="Chaque semaine"><span>Chaque semaine</span></label>
+            <label><input type="radio" name="frequence" value="2.17" data-nom="Toutes les 2 semaines"><span>Toutes les 2 semaines</span></label>
+            <label><input type="radio" name="frequence" value="1.01" data-nom="Une fois par mois"><span>Une fois par mois</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="etape">3</span> Vos coordonnées</legend>
+          <div class="champs">
+            <label class="champ">Prénom et nom<input name="nom" autocomplete="name" placeholder="Camille Martin"></label>
+            <label class="champ">Ville<input name="ville" autocomplete="address-level2" placeholder="Rezé"></label>
+            <label class="champ">E-mail<input type="email" name="email" autocomplete="email" placeholder="camille@exemple.fr"></label>
+            <label class="champ">Téléphone<input type="tel" name="tel" autocomplete="tel" placeholder="06 12 34 56 78"></label>
+            <label class="champ">Date souhaitée<input type="date" name="date"></label>
+            <label class="champ">Créneau
+              <select name="creneau"><option>Matin</option><option>Après-midi</option><option>Peu importe</option></select>
+            </label>
+            <label class="champ large">Un détail à préciser ?<textarea name="message" placeholder="Accès, animaux, matériel sur place, haie de 15 m…"></textarea></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="colonne-devis">
+        <article class="papier" id="papier" aria-label="Aperçu du devis">
+          <div class="papier-tete">
+            <span class="logo"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></span>
+            <p class="papier-ref"><strong id="numero">Devis</strong><span id="date-devis"></span><br>Valable 30 jours</p>
+          </div>
+          <span class="tampon">Gratuit</span>
+          <div class="papier-parties">
+            <div>
+              <h3>Prestataire</h3>
+              <p>Elouan Ménage (fictif)<br>Nantes et 20 km autour<br>06 00 00 00 00</p>
+            </div>
+            <div>
+              <h3>Client</h3>
+              <p id="client">Vos coordonnées apparaîtront ici</p>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th scope="col">Prestation</th><th scope="col">Qté</th><th scope="col">Prix</th></tr></thead>
+            <tbody id="lignes"></tbody>
+          </table>
+          <div class="totaux" id="totaux"></div>
+          <div class="papier-pied">
+            <p id="mentions">Rythme : ponctuel. TVA non applicable, art. 293 B du CGI. Crédit d'impôt selon l'article 199 sexdecies du CGI.</p>
+            <div class="signature">Bon pour accord</div>
+          </div>
+        </article>
+
+        <div class="actions-devis">
+          <button type="button" class="btn" id="envoyer"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#mail"/></svg>Envoyer à Elouan</button>
+          <button type="button" class="btn btn-secondaire" id="imprimer"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#imprimer"/></svg>Imprimer / PDF</button>
+          <button type="button" class="btn btn-secondaire" id="copier"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#copier"/></svg>Copier</button>
+        </div>
+        <p class="note-demo">Démonstration : « Envoyer » ouvre votre messagerie avec le devis déjà rédigé. L'adresse est fictive, et rien n'est enregistré sur ce site.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast-devis" id="toast" role="status"></div>
+
+  <footer class="pied">
+    <div class="pied-grille">
+      <div class="pied-marque">
+        <a class="logo logo-pied" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
+        <p>Un seul pro pour toute la maison.</p>
+        <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
+      </div>
+      <div class="pied-liens">
+        <h3>Le site</h3>
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+        <a href="devis.html">Devis gratuit</a>
+      </div>
+      <div class="pied-liens">
+        <h3>Contact</h3>
+        <a href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#mail"/></svg>contact@elouan-menage.fr</a>
+        <p><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>Du lundi au samedi, 8 h–19 h</p>
+      </div>
+    </div>
+    <div class="pied-bas">
+      <p>&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+      <p class="pied-legal"><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#donnees">Données personnelles</a> · <button type="button" class="lien-cookies" data-cookies>Gérer les cookies</button></p>
+    </div>
+  </footer>
+  <script src="site.js" defer></script>
+  <script>
+    const TARIFS = {
+      "entretien":       { nom: "Ménage et entretien", unite: "h", prix: 30 },
+      "jardinage":       { nom: "Jardinage", unite: "h", prix: 35 },
+      "coup-de-main":    { nom: "Petits coups de main", unite: "h", prix: 30 },
+      "nettoyage":       { nom: "Grand nettoyage", unite: "forfait" },
+      "maison-complete": { nom: "Forfait « Maison complète »", unite: "forfait", prix: 120, detail: "Ménage + jardin, 4 h" }
+    };
+    const LOGEMENTS = { "150": "Appartement", "190": "Maison jusqu'à 100 m²", "240": "Maison de plus de 100 m²" };
+    const heures = { "entretien": 3, "jardinage": 2, "coup-de-main": 1 };
+    const form = document.getElementById("formulaire");
+    const euros = (n) => n.toLocaleString("fr-FR", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + " €";
+    const echapper = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    // Numéro et date du devis
+    const aujourdhui = new Date();
+    const numero = "EM-" + aujourdhui.getFullYear() + "-" + String(aujourdhui.getMonth() + 1).padStart(2, "0") + String(aujourdhui.getDate()).padStart(2, "0") + "-" + Math.floor(100 + Math.random() * 900);
+    document.getElementById("numero").textContent = "Devis " + numero;
+    document.getElementById("date-devis").textContent = "Du " + aujourdhui.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+
+    // Pré-remplissage depuis l'adresse : devis.html?service=jardinage&heures=3 ou ?formule=maison-complete
+    const params = new URLSearchParams(location.search);
+    const service = params.get("service"), formule = params.get("formule");
+    const h = parseInt(params.get("heures"), 10);
+    if (service && TARIFS[service]) {
+      form.elements[service].checked = true;
+      if (heures[service] !== undefined && h > 0 && h <= 12) heures[service] = h;
+    } else if (formule === "maison-complete") {
+      form.elements["maison-complete"].checked = true;
+    } else {
+      form.elements["entretien"].checked = true;
+    }
+
+    function lignesDevis() {
+      const lignes = [];
+      for (const id of ["entretien", "jardinage", "nettoyage", "coup-de-main", "maison-complete"]) {
+        if (!form.elements[id].checked) continue;
+        const t = TARIFS[id];
+        if (id === "nettoyage") {
+          const v = form.elements.logement.value;
+          lignes.push({ nom: t.nom, detail: LOGEMENTS[v], qte: "1", total: Number(v) });
+        } else if (t.unite === "h") {
+          lignes.push({ nom: t.nom, detail: t.prix + " € / h", qte: heures[id] + " h", total: heures[id] * t.prix });
+        } else {
+          lignes.push({ nom: t.nom, detail: t.detail, qte: "1", total: t.prix });
+        }
+      }
+      return lignes;
+    }
+
+    function calculer() {
+      const lignes = lignesDevis();
+      const total = lignes.reduce((s, l) => s + l.total, 0);
+      const freq = form.querySelector("[name=frequence]:checked");
+      const parMois = Number(freq.value);
+      return { lignes, total, credit: total / 2, reste: total / 2, freqNom: freq.dataset.nom, parMois };
+    }
+
+    function rendre(anime) {
+      const d = calculer();
+      document.getElementById("lignes").innerHTML = d.lignes.length
+        ? d.lignes.map((l) => `<tr><td>${l.nom}${l.detail ? `<small>${l.detail}</small>` : ""}</td><td>${l.qte}</td><td>${euros(l.total)}</td></tr>`).join("")
+        : `<tr class="vide"><td colspan="3">Cochez au moins une prestation à gauche.</td></tr>`;
+      const recurrent = d.freqNom !== "Ponctuel" && d.total > 0;
+      document.getElementById("totaux").innerHTML = `
+        <div><span>Total par passage</span><span>${euros(d.total)}</span></div>
+        <div class="credit"><span>Crédit d'impôt immédiat (50 %)</span><span>− ${euros(d.credit)}</span></div>
+        <div class="reste"><span>Reste à payer</span><span>${euros(d.reste)}</span></div>
+        ${recurrent ? `<div class="mois"><span>Soit environ par mois (${d.freqNom.toLowerCase()})</span><span>${euros(Math.round(d.reste * d.parMois))}</span></div>` : ""}`;
+      document.getElementById("mentions").textContent =
+        `Rythme : ${d.freqNom.toLowerCase()}. TVA non applicable, art. 293 B du CGI. Crédit d'impôt selon l'article 199 sexdecies du CGI.`;
+
+      const f = form.elements;
+      const morceaux = [f.nom.value, f.ville.value, f.email.value, f.tel.value].map((v) => v.trim()).filter(Boolean);
+      const quand = f.date.value ? "Souhaité le " + new Date(f.date.value).toLocaleDateString("fr-FR") + " · " + f.creneau.value.toLowerCase() : "";
+      document.getElementById("client").innerHTML = morceaux.length || quand
+        ? morceaux.map(echapper).join("<br>") + (quand ? `<br><em>${echapper(quand)}</em>` : "")
+        : "Vos coordonnées apparaîtront ici";
+
+      if (anime) {
+        const t = document.getElementById("totaux");
+        t.classList.remove("maj"); void t.offsetWidth; t.classList.add("maj");
+      }
+    }
+
+    // Boutons + / − pour les heures
+    form.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-pas]");
+      if (!b) return;
+      e.preventDefault();
+      const zone = b.closest(".compteur-h");
+      const id = zone.dataset.cible.replace("h-", "");
+      heures[id] = Math.min(12, Math.max(1, heures[id] + Number(b.dataset.pas)));
+      document.getElementById(zone.dataset.cible).textContent = heures[id] + " h";
+      rendre(true);
+    });
+    Object.keys(heures).forEach((id) => (document.getElementById("h-" + id).textContent = heures[id] + " h"));
+    form.addEventListener("input", () => rendre(true));
+    form.addEventListener("change", () => rendre(true));
+
+    function texteDevis() {
+      const d = calculer();
+      const f = form.elements;
+      return [
+        `Devis ${numero} — Elouan Ménage`,
+        "",
+        ...d.lignes.map((l) => `• ${l.nom} (${l.qte}) : ${euros(l.total)}`),
+        "",
+        `Total par passage : ${euros(d.total)}`,
+        `Crédit d'impôt (50 %) : − ${euros(d.credit)}`,
+        `Reste à payer : ${euros(d.reste)}`,
+        `Rythme : ${d.freqNom}`,
+        "",
+        `Nom : ${f.nom.value || "—"}`,
+        `Ville : ${f.ville.value || "—"}`,
+        `E-mail : ${f.email.value || "—"}`,
+        `Téléphone : ${f.tel.value || "—"}`,
+        `Date souhaitée : ${f.date.value ? new Date(f.date.value).toLocaleDateString("fr-FR") : "—"} (${f.creneau.value})`,
+        f.message.value ? `Précisions : ${f.message.value}` : ""
+      ].join("\n");
+    }
+
+    function toast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("visible");
+      setTimeout(() => t.classList.remove("visible"), 3000);
+    }
+
+    document.getElementById("envoyer").addEventListener("click", () => {
+      if (!lignesDevis().length) return toast("Cochez au moins une prestation.");
+      location.href = "mailto:contact@elouan-menage.fr?subject=" + encodeURIComponent("Demande de devis " + numero)
+        + "&body=" + encodeURIComponent("Bonjour Elouan,\n\nVoici ma demande :\n\n" + texteDevis() + "\n\nMerci !");
+    });
+    document.getElementById("imprimer").addEventListener("click", () => window.print());
+    document.getElementById("copier").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(texteDevis()); toast("Devis copié dans le presse-papiers."); }
+      catch (e) { toast("Copie impossible sur ce navigateur."); }
+    });
+
+    rendre(false);
+  </script>
+</body>
+</html>

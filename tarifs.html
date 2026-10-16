@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarifs – Elouan Ménage</title>
+  <meta name="description" content="Tarifs clairs d'Elouan Ménage : ménage, jardinage, grand nettoyage et forfait « Maison complète ». Devis gratuit, crédit d'impôt de 50 % avancé.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles propres à la page Tarifs – uniquement des variables de style.css */
+    .intro-tarifs {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    @media (min-width: 720px) {
+      .intro-tarifs {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .intro-tarifs figure {
+      margin: 0;
+    }
+    .intro-tarifs img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+    }
+    .intro-tarifs figcaption {
+      font-size: 0.9em;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+    .tableau-tarifs {
+      position: relative;
+      overflow-x: auto;
+    }
+    .tableau-tarifs table {
+      width: 100%;
+      min-width: 28rem;
+    }
+    .ligne-forfait {
+      background: var(--surface);
+      font-weight: bold;
+      border-left: 0.35rem solid var(--soleil);
+    }
+    .ligne-forfait small {
+      display: block;
+      font-weight: normal;
+    }
+    .encadre-credit {
+      background: var(--surface);
+      border-left: 0.35rem solid var(--vert);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .encadre-credit p:last-child {
+      margin-bottom: 0;
+    }
+    .calcul-credit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: baseline;
+      margin: 1rem 0;
+    }
+    .calcul-credit .prix-final {
+      display: inline-block;
+      background: var(--vert);
+      color: #fff;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-weight: bold;
+    }
+    .cta-tarifs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .lien-devis { display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; white-space: nowrap; color: var(--vert); }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    @media (max-width: 600px) {
+      .tableau-tarifs { overflow: visible; }
+      .tableau-tarifs table { min-width: 0; }
+      .tableau-tarifs thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .tableau-tarifs tbody tr { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .4rem 1rem; padding: 1rem; border-bottom: 1px solid var(--surface); }
+      .tableau-tarifs tbody th, .tableau-tarifs tbody td { padding: 0; border: 0; background: none; color: var(--texte); }
+      .tableau-tarifs tbody th { grid-column: 1 / -1; font-family: "Poppins", system-ui, sans-serif; }
+      .tableau-tarifs tbody td:nth-of-type(2) { text-align: right; font-weight: 700; font-size: 1.1rem; color: var(--vert); }
+      .tableau-tarifs tbody td:nth-of-type(3) { grid-column: 1 / -1; }
+      .tableau-tarifs .ligne-forfait { border-left-width: .35rem; }
+    }
+    .note-fictif {
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="entete">
+    <div class="banderole" aria-label="Informations pratiques">
+      <div class="banderole-defile">
+        <ul class="banderole-liste">
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
+        </ul>
+        <ul class="banderole-liste" aria-hidden="true">
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg><span><span class="note-banderole">4,5</span>/5 sur Google</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg><span>06 00 00 00 00</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg><span>Lun–sam · 8 h–19 h</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#euro"/></svg><span>50 % de crédit d'impôt immédiat</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#feuille"/></svg><span>Entretien · Nettoyage · Jardinage · Coups de main</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#pin"/></svg><span>Nantes et 20 km autour</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="images/icones.svg#eclair"/></svg><span>Devis gratuit en 2 minutes</span></li>
+        </ul>
+      </div>
+    </div>
+    <nav aria-label="Navigation principale">
+      <a class="logo" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
+      <div class="liens-nav">
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html" aria-current="page">Tarifs</a>
+        <a href="avis.html">Avis</a>
+      </div>
+      <a class="btn btn-nav" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg><span>Devis<span class="masque-etroit"> gratuit</span></span></a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1. Introduction -->
+    <section class="section revele">
+      <div class="intro-tarifs">
+        <div>
+          <h1><span class="souligne">Tarifs</span></h1>
+          <p>Des prix clairs, annoncés avant de commencer. Pas de surprise sur la facture.</p>
+          <p>Le devis est gratuit, et vous n'avez qu'un seul interlocuteur pour la maison et le jardin.</p>
+          <a class="btn" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Demander un devis</a>
+        </div>
+        <figure class="cadre-dessin">
+          <img src="images/tarifs-aspirateur-salon.jpg" alt="Elouan passe l'aspirateur dans un salon lumineux" width="800" height="600" loading="lazy">
+          <figcaption>Elouan en pleine action. Ouvrez l'œil&nbsp;: la maison a parfois des invités discrets, et un ancêtre à moustache qui surveille le travail.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2. Tableau des prix -->
+    <section class="section revele" aria-labelledby="titre-prix">
+      <h2 id="titre-prix">Nos prix indicatifs</h2>
+      <p>Voici nos tarifs de base. Chaque maison est différente&nbsp;: le devis ajuste le prix à votre situation.</p>
+      <div class="tableau-tarifs">
+        <table>
+          <caption>Tarifs indicatifs, hors crédit d'impôt</caption>
+          <thead>
+            <tr>
+              <th scope="col">Prestation</th>
+              <th scope="col">Pôle</th>
+              <th scope="col">Prix</th>
+              <th scope="col"><span class="visually-hidden">Devis</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Ménage courant</th>
+              <td><span class="badge badge-entretien">Entretien</span></td>
+              <td>30&nbsp;€ / h</td>
+              <td><a class="lien-devis" href="devis.html?service=entretien&amp;heures=3">Estimer <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></a></td>
+            </tr>
+            <tr>
+              <th scope="row">Jardinage</th>
+              <td><span class="badge badge-jardinage">Jardinage</span></td>
+              <td>35&nbsp;€ / h</td>
+              <td><a class="lien-devis" href="devis.html?service=jardinage&amp;heures=3">Estimer <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></a></td>
+            </tr>
+            <tr>
+              <th scope="row">Grand nettoyage</th>
+              <td><span class="badge badge-nettoyage">Nettoyage</span></td>
+              <td>à partir de 150&nbsp;€</td>
+              <td><a class="lien-devis" href="devis.html?service=nettoyage">Estimer <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></a></td>
+            </tr>
+            <tr class="ligne-forfait">
+              <th scope="row">
+                Forfait «&nbsp;Maison complète&nbsp;»
+                <small>Ménage + jardin, 4&nbsp;h en une seule visite</small>
+              </th>
+              <td><span class="badge badge-coup-de-main">Coup de main</span></td>
+              <td>120&nbsp;€</td>
+              <td><a class="lien-devis" href="devis.html?formule=maison-complete">Estimer <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. Encadré crédit d'impôt -->
+    <section class="section revele" aria-labelledby="titre-credit">
+      <div class="encadre-credit">
+        <h2 id="titre-credit">Vous ne payez que la moitié</h2>
+        <p>Nos services relèvent des services à la personne. Vous bénéficiez d'un crédit d'impôt de 50&nbsp;%, et grâce à l'avance immédiate, vous n'avancez pas la somme&nbsp;: la réduction est appliquée directement sur votre facture.</p>
+        <p><strong>Exemple avec le forfait «&nbsp;Maison complète&nbsp;»&nbsp;:</strong></p>
+        <p class="calcul-credit">
+          <span>120&nbsp;€ de prestation</span>
+          <span>→</span>
+          <span>− 50&nbsp;% de crédit d'impôt</span>
+          <span>→</span>
+          <span class="prix-final">60&nbsp;€ à payer</span>
+        </p>
+        <p>Vous avez une question sur votre situation&nbsp;? Appelez-nous, on vous explique tout simplement.</p>
+      </div>
+    </section>
+
+    <!-- 4. Bon à savoir -->
+    <section class="section revele" aria-labelledby="titre-savoir">
+      <h2 id="titre-savoir">Bon à savoir</h2>
+      <div class="grille">
+        <article class="carte">
+          <h3>Des prix indicatifs</h3>
+          <p>Les tarifs ci-dessus donnent un ordre de grandeur. Le prix exact dépend de la taille de votre maison et de l'état des lieux.</p>
+        </article>
+        <article class="carte">
+          <h3>Un devis gratuit</h3>
+          <p>Le devis est gratuit et sans engagement. Vous décidez ensuite, sans pression.</p>
+        </article>
+        <article class="carte">
+          <h3>Déplacement inclus</h3>
+          <p>Aucun frais de déplacement dans un rayon de 20&nbsp;km. Au-delà, on en parle ensemble.</p>
+        </article>
+        <article class="carte">
+          <h3>Un seul créneau</h3>
+          <p>Ménage, jardin, petit coup de main&nbsp;: tout peut se faire lors d'une même visite. Un seul rendez-vous, une seule personne.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Appel à l'action -->
+    <section class="section revele" id="devis" aria-labelledby="titre-cta">
+      <div class="cta-reserver">
+        <h2 id="titre-cta">On en parle&nbsp;?</h2>
+        <p>Choisissez vos prestations : le devis se remplit tout seul, crédit d'impôt compris. Vous pouvez ensuite l'imprimer ou nous l'envoyer.</p>
+        <a class="btn" href="devis.html"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#document"/></svg>Faire mon devis en ligne</a>
+        <a class="btn btn-secondaire" href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>Appeler Elouan</a>
+        <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
+      </div>
+    </section>
+
+
+    <section class="section revele" aria-labelledby="titre-suite">
+      <h2 id="titre-suite">Continuer la visite</h2>
+      <div class="autres-pages">
+        <a class="lien-page" href="index.html">
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#maison"/></svg></span>
+          <h3>Accueil</h3>
+          <p>Tous les services d'Elouan en un coup d'œil.</p>
+          <span class="fleche-lien">Découvrir <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
+        </a>
+        <a class="lien-page" href="notre-histoire.html">
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#livre"/></svg></span>
+          <h3>Notre histoire</h3>
+          <p>Comment Elouan est devenu le pro multi-tâches du quartier.</p>
+          <span class="fleche-lien">Lire l'histoire <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
+        </a>
+        <a class="lien-page" href="avis.html">
+          <span class="picto"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#etoile"/></svg></span>
+          <h3>Avis</h3>
+          <p>Ce que les clients disent d'Elouan, sans filtre.</p>
+          <span class="fleche-lien">Lire les avis <svg class="ico" aria-hidden="true"><use href="images/icones.svg#fleche"/></svg></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="pied-grille">
+      <div class="pied-marque">
+        <a class="logo logo-pied" href="index.html" aria-label="Elouan Ménage, accueil"><svg class="logo-marque" aria-hidden="true"><use href="images/icones.svg#logo"/></svg><span class="logo-texte">Elouan Ménage<small>Maison &amp; jardin</small></span></a>
+        <p>Un seul pro pour toute la maison.</p>
+        <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
+      </div>
+      <div class="pied-liens">
+        <h3>Le site</h3>
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+        <a href="devis.html">Devis gratuit</a>
+      </div>
+      <div class="pied-liens">
+        <h3>Contact</h3>
+        <a href="tel:+33600000000"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#tel"/></svg>06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr"><svg class="ico" aria-hidden="true"><use href="images/icones.svg#mail"/></svg>contact@elouan-menage.fr</a>
+        <p><svg class="ico" aria-hidden="true"><use href="images/icones.svg#horloge"/></svg>Du lundi au samedi, 8 h–19 h</p>
+      </div>
+    </div>
+    <div class="pied-bas">
+      <p>&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
+      <p class="pied-legal"><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#donnees">Données personnelles</a> · <button type="button" class="lien-cookies" data-cookies>Gérer les cookies</button></p>
+    </div>
+  </footer>
+  <script src="site.js" defer></script>
+
+</body>
+</html>
