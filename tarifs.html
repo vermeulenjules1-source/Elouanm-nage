@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarifs – Elouan Ménage</title>
+  <meta name="description" content="Tarifs clairs d'Elouan Ménage : ménage, jardinage, grand nettoyage et forfait « Maison complète ». Devis gratuit, crédit d'impôt de 50 % avancé.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styles propres à la page Tarifs – uniquement des variables de style.css */
+    .intro-tarifs {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    @media (min-width: 720px) {
+      .intro-tarifs {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .intro-tarifs figure {
+      margin: 0;
+    }
+    .intro-tarifs img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+    }
+    .intro-tarifs figcaption {
+      font-size: 0.9em;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+    .tableau-tarifs {
+      overflow-x: auto;
+    }
+    .tableau-tarifs table {
+      width: 100%;
+      min-width: 28rem;
+    }
+    .ligne-forfait {
+      background: var(--surface);
+      font-weight: bold;
+      border-left: 0.35rem solid var(--soleil);
+    }
+    .ligne-forfait small {
+      display: block;
+      font-weight: normal;
+    }
+    .encadre-credit {
+      background: var(--surface);
+      border-left: 0.35rem solid var(--vert);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .encadre-credit p:last-child {
+      margin-bottom: 0;
+    }
+    .calcul-credit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: baseline;
+      margin: 1rem 0;
+    }
+    .calcul-credit .prix-final {
+      display: inline-block;
+      background: var(--vert);
+      color: #fff;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-weight: bold;
+    }
+    .cta-tarifs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .note-fictif {
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav aria-label="Navigation principale">
+      <a href="index.html" class="logo">Elouan Ménage</a>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="histoire.html">Notre histoire</a></li>
+        <li><a href="tarifs.html" aria-current="page">Tarifs</a></li>
+        <li><a href="avis.html">Avis</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1. Introduction -->
+    <section class="section hero">
+      <div class="intro-tarifs">
+        <div>
+          <h1>Tarifs</h1>
+          <p>Des prix clairs, annoncés avant de commencer. Pas de surprise sur la facture.</p>
+          <p>Le devis est gratuit, et vous n'avez qu'un seul interlocuteur pour la maison et le jardin.</p>
+          <a class="btn" href="#devis">Demander un devis</a>
+        </div>
+        <figure>
+          <img src="images/tarifs-aspirateur-salon.jpg" alt="Elouan passe l'aspirateur dans un salon lumineux" width="800" height="600" loading="lazy">
+          <figcaption>Elouan en pleine action. Ouvrez l'œil&nbsp;: la maison a parfois des invités discrets, et un ancêtre à moustache qui surveille le travail.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2. Tableau des prix -->
+    <section class="section" aria-labelledby="titre-prix">
+      <h2 id="titre-prix">Nos prix indicatifs</h2>
+      <p>Voici nos tarifs de base. Chaque maison est différente&nbsp;: le devis ajuste le prix à votre situation.</p>
+      <div class="tableau-tarifs">
+        <table>
+          <caption>Tarifs indicatifs, hors crédit d'impôt</caption>
+          <thead>
+            <tr>
+              <th scope="col">Prestation</th>
+              <th scope="col">Pôle</th>
+              <th scope="col">Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Ménage courant</th>
+              <td><span class="badge badge-entretien">Entretien</span></td>
+              <td>30&nbsp;€ / h</td>
+            </tr>
+            <tr>
+              <th scope="row">Jardinage</th>
+              <td><span class="badge badge-jardinage">Jardinage</span></td>
+              <td>35&nbsp;€ / h</td>
+            </tr>
+            <tr>
+              <th scope="row">Grand nettoyage</th>
+              <td><span class="badge badge-nettoyage">Nettoyage</span></td>
+              <td>à partir de 150&nbsp;€</td>
+            </tr>
+            <tr class="ligne-forfait">
+              <th scope="row">
+                Forfait «&nbsp;Maison complète&nbsp;»
+                <small>Ménage + jardin, 4&nbsp;h en une seule visite</small>
+              </th>
+              <td><span class="badge badge-coup-de-main">Coup de main</span></td>
+              <td>120&nbsp;€</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. Encadré crédit d'impôt -->
+    <section class="section" aria-labelledby="titre-credit">
+      <div class="encadre-credit">
+        <h2 id="titre-credit">Vous ne payez que la moitié</h2>
+        <p>Nos services relèvent des services à la personne. Vous bénéficiez d'un crédit d'impôt de 50&nbsp;%, et grâce à l'avance immédiate, vous n'avancez pas la somme&nbsp;: la réduction est appliquée directement sur votre facture.</p>
+        <p><strong>Exemple avec le forfait «&nbsp;Maison complète&nbsp;»&nbsp;:</strong></p>
+        <p class="calcul-credit">
+          <span>120&nbsp;€ de prestation</span>
+          <span>→</span>
+          <span>− 50&nbsp;% de crédit d'impôt</span>
+          <span>→</span>
+          <span class="prix-final">60&nbsp;€ à payer</span>
+        </p>
+        <p>Vous avez une question sur votre situation&nbsp;? Appelez-nous, on vous explique tout simplement.</p>
+      </div>
+    </section>
+
+    <!-- 4. Bon à savoir -->
+    <section class="section" aria-labelledby="titre-savoir">
+      <h2 id="titre-savoir">Bon à savoir</h2>
+      <div class="grille">
+        <article class="carte">
+          <h3>Des prix indicatifs</h3>
+          <p>Les tarifs ci-dessus donnent un ordre de grandeur. Le prix exact dépend de la taille de votre maison et de l'état des lieux.</p>
+        </article>
+        <article class="carte">
+          <h3>Un devis gratuit</h3>
+          <p>Le devis est gratuit et sans engagement. Vous décidez ensuite, sans pression.</p>
+        </article>
+        <article class="carte">
+          <h3>Déplacement inclus</h3>
+          <p>Aucun frais de déplacement dans un rayon de 20&nbsp;km. Au-delà, on en parle ensemble.</p>
+        </article>
+        <article class="carte">
+          <h3>Un seul créneau</h3>
+          <p>Ménage, jardin, petit coup de main&nbsp;: tout peut se faire lors d'une même visite. Un seul rendez-vous, une seule personne.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Appel à l'action -->
+    <section class="section" id="devis" aria-labelledby="titre-cta">
+      <h2 id="titre-cta">On en parle&nbsp;?</h2>
+      <p>Décrivez-nous votre maison, on vous répond vite avec un devis clair.</p>
+      <div class="cta-tarifs">
+        <a class="btn" href="mailto:contact@elouan-menage.fr?subject=Demande%20de%20devis">Demander un devis</a>
+        <a class="btn btn-secondaire" href="tel:0600000000">Appeler Elouan</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Elouan Ménage</strong> – Un seul pro pour toute la maison.</p>
+    <p><a href="tel:0600000000">06 00 00 00 00</a> · <a href="mailto:contact@elouan-menage.fr">contact@elouan-menage.fr</a></p>
+    <p>Du lundi au samedi, de 8&nbsp;h à 19&nbsp;h</p>
+    <p class="note-fictif">Entreprise fictive – projet pédagogique</p>
+  </footer>
+
+</body>
+</html>
