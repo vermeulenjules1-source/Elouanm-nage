@@ -8,95 +8,6 @@
   <style>
     /* Styles propres à la page Avis (Jules) */
 
-    /* En-tête amélioré : collant, avec banderole et bouton Réserver */
-    .entete {
-      position: sticky; top: 0; z-index: 20;
-      background: var(--fond);
-      border-bottom: 1px solid transparent;
-      transition: box-shadow .3s, border-color .3s;
-    }
-    main section { scroll-margin-top: 110px; }
-    .entete.defile { box-shadow: 0 4px 18px rgba(31, 42, 36, 0.10); border-color: #dbe4dc; }
-    .entete nav { transition: padding .3s; }
-    .entete.defile nav { padding-top: .55rem; padding-bottom: .55rem; }
-    .liens-nav { display: flex; gap: 1.5rem; }
-    .liens-nav a { position: relative; padding: .25rem 0; }
-    .liens-nav a::after {
-      content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
-      background: var(--vert); border-radius: 2px;
-      transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.8,.2,1);
-    }
-    .liens-nav a:hover::after, .liens-nav a[aria-current="page"]::after { transform: scaleX(1); }
-    nav .btn-nav { margin: 0 0 0 .5rem; padding: .55rem 1.25rem; color: #fff; font-size: .95rem; box-shadow: 0 4px 12px rgba(47, 107, 79, .3); }
-    nav .btn-nav:hover { color: #fff; }
-
-    /* Banderole verte qui défile */
-    .banderole {
-      background: linear-gradient(90deg, var(--vert-fonce), var(--vert) 50%, var(--vert-fonce));
-      color: #fff; overflow: hidden; font-size: .85rem; font-weight: 600;
-      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-    }
-    .banderole-defile { display: flex; width: max-content; animation: defile 38s linear infinite; }
-    .banderole:hover .banderole-defile { animation-play-state: paused; }
-    .banderole-liste { display: flex; margin: 0; padding: .45rem 0; list-style: none; }
-    .banderole-liste li { padding: 0 1.75rem; white-space: nowrap; position: relative; }
-    .banderole-liste li::after { content: "•"; position: absolute; right: -.2rem; color: var(--soleil); }
-    @keyframes defile { to { transform: translateX(-50%); } }
-
-    /* Liens vers les autres pages */
-    .autres-pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .lien-page {
-      position: relative; display: block; overflow: hidden;
-      background: #fff; border-radius: var(--rayon); box-shadow: var(--ombre);
-      padding: 1.5rem; text-decoration: none; color: var(--texte);
-      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
-    }
-    .lien-page:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(31, 42, 36, .15); }
-    .lien-page .picto { font-size: 2rem; display: block; transition: transform .3s; }
-    .lien-page:hover .picto { transform: scale(1.15) rotate(-6deg); }
-    .lien-page h3 { margin: .5rem 0 .25rem; }
-    .lien-page p { margin: 0; color: var(--texte-doux); font-size: .95rem; }
-    .lien-page .fleche-lien { display: inline-block; margin-top: .75rem; font-weight: 600; color: var(--vert); transition: transform .3s; }
-    .lien-page:hover .fleche-lien { transform: translateX(6px); }
-
-    /* Rappel de réservation */
-    .cta-reserver {
-      position: relative; overflow: hidden; text-align: center;
-      background: linear-gradient(135deg, var(--vert-fonce), var(--vert));
-      color: #fff; border-radius: calc(var(--rayon) * 1.5); padding: 3rem 1.5rem;
-    }
-    .cta-reserver::before, .cta-reserver::after {
-      content: "🌿"; position: absolute; font-size: 7rem; opacity: .12; pointer-events: none;
-      animation: flotte 6s ease-in-out infinite;
-    }
-    .cta-reserver::before { left: -1rem; top: -1.5rem; }
-    .cta-reserver::after { content: "🧽"; right: -1rem; bottom: -2rem; animation-delay: -3s; }
-    @keyframes flotte { 50% { transform: translateY(12px) rotate(8deg); } }
-    .cta-reserver h2 { color: #fff; margin: 0 0 .5rem; }
-    .cta-reserver p { margin: 0 auto 1.5rem; max-width: 520px; opacity: .92; }
-    .cta-reserver .btn { background: var(--soleil); color: var(--texte); font-size: 1.05rem; padding: .85rem 1.75rem; animation: pulse 2.4s ease-in-out infinite; }
-    .cta-reserver .btn:hover { background: #ffc85e; }
-    .cta-reserver .btn-secondaire { background: transparent; color: #fff; border-color: #fff; animation: none; }
-    .cta-reserver .btn-secondaire:hover { background: #fff; color: var(--vert-fonce); }
-    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(242, 181, 68, .55); } 50% { box-shadow: 0 0 0 12px rgba(242, 181, 68, 0); } }
-    .cta-reserver small { display: block; margin-top: 1rem; opacity: .8; }
-    .intro-avis {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-    .intro-avis h1 { margin: 0 0 0.5rem; }
-    .intro-avis p { color: var(--texte-doux); font-size: 1.1rem; }
-    .intro-avis figure { margin: 0; position: relative; }
-    .intro-avis img { box-shadow: var(--ombre); display: block; }
-    .intro-avis figcaption {
-      position: absolute; left: 1rem; bottom: 1rem;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 0.35rem 0.8rem; border-radius: 999px;
-      font-size: 0.85rem; font-weight: 600; color: var(--vert-fonce);
-    }
-
     /* Fiche « Google » fictive */
     .fiche {
       background: #fff;
@@ -269,16 +180,11 @@
     }
     .toast.visible { transform: translate(-50%, 0); visibility: visible; }
 
-    /* Apparition au défilement */
-    .revele { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1); }
-    .revele.vu { opacity: 1; transform: none; }
-
     @media (max-width: 900px) {
       .carte-avis { flex-basis: calc((100% - 1.25rem) / 2); }
       .fiche { grid-template-columns: 1fr auto; }
       .repartition { grid-column: 1 / -1; grid-row: 3; }
       .fiche .btn-avis { grid-column: 1 / -1; justify-self: start; }
-      .autres-pages { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       h1 { font-size: 2rem; }
@@ -288,24 +194,17 @@
       .fiche .btn-avis { justify-self: center; }
       .repartition { grid-row: auto; }
       .rangee { flex-direction: column; align-items: stretch; gap: .35rem; }
-      .entete nav { gap: .5rem 1rem; }
-      .liens-nav { order: 3; width: 100%; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
-      .liens-nav::-webkit-scrollbar { display: none; }
-      .liens-nav a { white-space: nowrap; }
-      nav .btn-nav { padding: .45rem 1rem; font-size: .9rem; }
-      .cta-reserver { padding: 2.25rem 1.25rem; }
       .recherche { max-width: none; }
       .outils select { flex: 1 1 100%; }
       .fleche { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-      .revele { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <header class="entete" id="entete">
+  <header class="entete">
     <div class="banderole" aria-label="Informations pratiques">
       <div class="banderole-defile">
         <ul class="banderole-liste">
@@ -328,7 +227,7 @@
         </ul>
       </div>
     </div>
-    <nav>
+    <nav aria-label="Navigation principale">
       <a class="logo" href="index.html">Elouan Ménage</a>
       <div class="liens-nav">
         <a href="index.html">Accueil</a>
@@ -336,7 +235,7 @@
         <a href="tarifs.html">Tarifs</a>
         <a href="avis.html" aria-current="page">Avis</a>
       </div>
-      <a class="btn btn-nav" href="tarifs.html">Réserver</a>
+      <a class="btn btn-nav" href="tarifs.html#devis">Réserver</a>
     </nav>
   </header>
 
@@ -346,7 +245,7 @@
       <div>
         <h1>Ils nous font confiance</h1>
         <p>Ménage, vitres, haies ou meubles à monter : nos clients racontent leur expérience avec Elouan. Triez les avis par période, par service ou par note.</p>
-        <a class="btn" href="tarifs.html">Demander un devis</a>
+        <a class="btn" href="tarifs.html#devis">Demander un devis</a>
       </div>
       <figure>
         <img src="images/avis-haie-pouce.jpg" alt="Elouan taille une haie, à côté d'un buis sculpté en forme de pouce levé" width="638" height="414">
@@ -412,7 +311,7 @@
       <div class="cta-reserver">
         <h2 id="titre-cta">Envie d'être le prochain avis 5 étoiles ?</h2>
         <p>Ménage, vitres, jardin ou petits travaux : un seul passage d'Elouan, et la maison est réglée. Le devis est gratuit, avec une réponse sous 24 h.</p>
-        <a class="btn" href="tarifs.html">📅 Réserver Elouan</a>
+        <a class="btn" href="tarifs.html#devis">📅 Réserver Elouan</a>
         <a class="btn btn-secondaire" href="tel:+33600000000">📞 06 00 00 00 00</a>
         <small>50 % de crédit d'impôt immédiat : vous ne payez que la moitié.</small>
       </div>
@@ -476,9 +375,30 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <footer>
-    <p>&copy; 2026 Elouan Ménage · Avis fictifs créés pour un projet pédagogique</p>
+  <footer class="pied">
+    <div class="pied-grille">
+      <div class="pied-marque">
+        <a class="logo-pied" href="index.html">🌿 Elouan Ménage</a>
+        <p>Un seul pro pour toute la maison.</p>
+        <p>Entretien, nettoyage, jardinage et petits coups de main.</p>
+      </div>
+      <div class="pied-liens">
+        <h3>Le site</h3>
+        <a href="index.html">Accueil</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="avis.html">Avis</a>
+      </div>
+      <div class="pied-liens">
+        <h3>Contact</h3>
+        <a href="tel:+33600000000">06 00 00 00 00</a>
+        <a href="mailto:contact@elouan-menage.fr">contact@elouan-menage.fr</a>
+        <p>Du lundi au samedi, 8 h–19 h</p>
+      </div>
+    </div>
+    <p class="pied-bas">&copy; 2026 Elouan Ménage · Entreprise, coordonnées et avis fictifs · Projet étudiant BUT Techniques de commercialisation</p>
   </footer>
+  <script src="site.js" defer></script>
 
   <script>
     // Avis fictifs. « jours » = il y a combien de jours l'avis a été posté,
@@ -808,10 +728,6 @@
     // Note de la banderole, calculée comme la note moyenne de la fiche
     const noteBanderole = (AVIS.reduce((t, a) => t + a.note, 0) / AVIS.length).toFixed(1).replace(".", ",");
     document.querySelectorAll(".note-banderole").forEach((e) => (e.textContent = noteBanderole));
-
-    // Ombre de l'en-tête quand on fait défiler la page
-    const entete = $("#entete");
-    addEventListener("scroll", () => entete.classList.toggle("defile", scrollY > 10), { passive: true });
 
     // Premier affichage
     dessinerPuces($("#puces-periode"), periodes(), "periode");

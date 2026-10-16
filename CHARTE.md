@@ -93,4 +93,8 @@ Gardez toujours le même pictogramme pour un même pôle, sur toutes les pages :
 
 1. Ne modifiez pas `style.css` dans votre branche. S'il manque un style, demandez qu'on l'ajoute sur `main`.
 2. Si votre page a besoin d'un style qui lui est propre, ajoutez un petit `<style>` dans votre propre page.
-3. Gardez le même `<header>` (menu) et le même `<footer>` sur toutes les pages.
+3. Gardez le même en-tête et le même pied de page sur toutes les pages. Copiez-les depuis `avis.html` :
+   - l'en-tête `<header class="entete">` contient la banderole verte qui défile, le menu et le bouton « Réserver » ;
+   - le pied de page `<footer class="pied">` est suivi de `<script src="site.js" defer></script>`.
+   Changez seulement l'attribut `aria-current="page"` pour qu'il soit sur le lien de votre page.
+4. Blocs communs disponibles dans `style.css` : `.cta-reserver` (bandeau vert « Réserver »), `.autres-pages` + `.lien-page` (cartes « Continuer la visite ») et `.revele` (apparition en douceur au défilement, gérée par `site.js`).
